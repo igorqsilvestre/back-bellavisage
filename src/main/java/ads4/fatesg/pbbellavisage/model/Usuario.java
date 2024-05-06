@@ -1,11 +1,12 @@
 package ads4.fatesg.pbbellavisage.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import lombok.Data;
 
-public class Usuario {
+@Data
+@Entity
+@Table(name = "usuario")
+public class Usuario extends BaseModel {
 
     @Column(name = "nome", nullable = false)
     private String nome;

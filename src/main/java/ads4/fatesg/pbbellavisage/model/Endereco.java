@@ -1,8 +1,12 @@
 package ads4.fatesg.pbbellavisage.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
-public class Endereco {
+@Data
+@Entity
+@Table(name = "endereco")
+public class Endereco extends BaseModel{
 
     @Column(name = "cep", length = 8, nullable = false)
     private String cep;

@@ -27,20 +27,18 @@ spring:
 
 
   #Configuração do JPA para uso do Hibernate
-  #jpa:
-   # open-in-view: false
-    #hibernate:
-     # ddl-auto: update
-    #generate-ddl: true
-    #database: postgresql
-    #show-sql: true
-    #database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database: mysql
+    show-sql: true
 
 
   #Configuração da origem do banco de dados
-  #datasource:
-   # driver-class-name: org.postgresql.Driver
-    #name: postgres
-    #url: jdbc:postgresql://10.88.0.2:5432/northwind
-    #username: postgres
-    #password: 123456
+  datasource:
+    name: mysql
+    url: jdbc:mysql://localhost:3306/bellavisage
+    username: root
+    password: 123456
