@@ -6,7 +6,10 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "endereco")
-public class Endereco extends BaseModel{
+public class Endereco{
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "cep", length = 8, nullable = false)
     private String cep;

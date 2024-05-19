@@ -6,22 +6,16 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "usuario")
-public class Usuario extends BaseModel {
-
-    @Column(name = "nome", nullable = false)
-    private String nome;
-
-    @Column(name = "email", length = 30, nullable = false)
-    private String email;
+public class Usuario extends Pessoa{
 
     @Column(name = "senha", length = 8, nullable = false )
     private String senha;
 
-    @Column(name = "telefone", length = 30, nullable = false)
-    private String telefone;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "perfilAcesso", length = 20, nullable = false )
+    private PerfilAcesso perfilAcesso;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco endereco;
-
+    public enum PerfilAcesso {
+        ADMINISTRADOR, USUARIO
+    }
 }

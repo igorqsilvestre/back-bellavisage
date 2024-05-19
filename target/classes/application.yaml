@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+project:
+  name: 'pb-bellavisage'
+  version: '0.0.1-SNAPSHOT'
+  description: 'Demo project for Spring Boot'
+info:
+  build:
+    artifact: "pb-bellavisage"
+    name: "pb-bellavisage"
+    description: 'Demo project for Spring Boot'
+    version: '0.0.1-SNAPSHOT'
+
+application:
+  title: ${project.name}
+  version: ${project.version}
+
+spring:
+  output:
+    ansi:
+      enabled: ${SPRING_OUTPUT_ANSI_ENABLE} #always
+
+  banner:
+    charset: ${SPRING_BANNER_CHARSET} #UTF-8;
+    location: ${SPRING_BANNER_LOCATION} #classpath:/banner.txt;
+
+
+  #Configuração do JPA para uso do Hibernate
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database: mysql
+    show-sql: true
+
+
+  #Configuração da origem do banco de dados
+  datasource:
+    name: mysql
+    url: jdbc:mysql://localhost:3306/bellavisage
+    username: root
+    password: 123456

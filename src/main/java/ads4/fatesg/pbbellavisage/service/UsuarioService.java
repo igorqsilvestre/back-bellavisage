@@ -3,6 +3,7 @@ package ads4.fatesg.pbbellavisage.service;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Usuario;
 import ads4.fatesg.pbbellavisage.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
     @Transactional(readOnly = true)
     @Override
     public Usuario read(Integer id) {
+        //return usuarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
         return usuarioRepository.getReferenceById(id);
     }
 
