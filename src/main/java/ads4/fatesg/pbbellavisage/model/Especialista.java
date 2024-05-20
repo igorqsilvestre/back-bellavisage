@@ -1,11 +1,10 @@
 package ads4.fatesg.pbbellavisage.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,15 +12,14 @@ import java.util.List;
 @Table(name = "especialista")
 public class Especialista extends Pessoa{
 
-    @Column(name = "cpf", length = 11, nullable = false)
-    private String cpf;
-
-    @Column(name = "numero_registro", length = 20, nullable = false)
-    private Integer numeroRegistro;
+    @Column(name = "numero_registro", length = 20, nullable = false, unique = true)
+    private Integer numero_registro;
 
     @Column(name = "funcao", length = 100, nullable = false)
     private String funcao;
 
-    @OneToMany(mappedBy = "especialista")
-    private List<Atendimento> atendimentos;
+    @JsonIgnore
+    @OneToMany(mappedBy = "especialista", fetch = FetchType.LAZY)
+    private List<Atendimento> atendimentos = new ArrayList<>();
+
 }

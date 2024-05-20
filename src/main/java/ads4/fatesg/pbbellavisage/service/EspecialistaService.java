@@ -3,6 +3,7 @@ package ads4.fatesg.pbbellavisage.service;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Especialista;
 import ads4.fatesg.pbbellavisage.repository.EspecialistaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class EspecialistaService implements GenericOperations<Especialista, Inte
     @Transactional(readOnly = true)
     @Override
     public Especialista read(Integer id) {
-        return especialistaRepository.getReferenceById(id);
+        return especialistaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Especialista não encontrado!"));
     }
 
     @Transactional(readOnly = true)
@@ -41,6 +42,7 @@ public class EspecialistaService implements GenericOperations<Especialista, Inte
         Especialista especialistaEncontrado = this.read(id);
 
         if(especialistaEncontrado != null){
+            entity.getEndereco().setId(especialistaEncontrado.getEndereco().getId());
             entity.setId(especialistaEncontrado.getId());
             return especialistaRepository.save(entity);
         }
@@ -54,7 +56,7 @@ public class EspecialistaService implements GenericOperations<Especialista, Inte
         Especialista especialistaEncontrado = this.read(id);
 
         if(especialistaEncontrado != null){
-
+            entity.getEndereco().setId(especialistaEncontrado.getEndereco().getId());
             entity.setId(especialistaEncontrado.getId());
             return especialistaRepository.save(entity);
         }

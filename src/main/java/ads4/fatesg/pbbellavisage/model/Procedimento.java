@@ -20,6 +20,6 @@ public class Procedimento extends BaseModel{
     @Column(name = "descricao",nullable = false)
     private String descricao;
 
-    @OneToMany(mappedBy = "procedimento")
-    private List<Atendimento> atendimentos;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Atendimento atendimento;
 }

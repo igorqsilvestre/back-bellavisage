@@ -15,6 +15,7 @@ public class Usuario extends Pessoa{
     @Column(name = "perfilAcesso", length = 20, nullable = false )
     private PerfilAcesso perfilAcesso;
 
+
     public enum PerfilAcesso {
         ADMINISTRADOR, USUARIO
     }

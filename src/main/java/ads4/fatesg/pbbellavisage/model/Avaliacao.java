@@ -10,14 +10,13 @@ import java.util.List;
 @Table(name = "avaliacao")
 public class Avaliacao extends BaseModel{
 
-
     @Column(name = "nota", length = 10)
     private Integer nota;
 
     @Column(name = "comentario")
     private String comentario;
 
-    @OneToMany(mappedBy = "avaliacao")
-    private List<Atendimento> atendimentos;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Atendimento atendimento;
 
 }

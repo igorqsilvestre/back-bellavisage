@@ -3,6 +3,7 @@ package ads4.fatesg.pbbellavisage.service;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Paciente;
 import ads4.fatesg.pbbellavisage.repository.PacienteRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class PacienteService implements GenericOperations<Paciente, Integer> {
     @Transactional(readOnly = true)
     @Override
     public Paciente read(Integer id) {
-        return pacienteRepository.getReferenceById(id);
+        return pacienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado!"));
     }
 
     @Transactional(readOnly = true)
@@ -41,6 +42,8 @@ public class PacienteService implements GenericOperations<Paciente, Integer> {
         Paciente pacienteEncontrado = this.read(id);
 
         if(pacienteEncontrado != null){
+
+            entity.getEndereco().setId(pacienteEncontrado.getEndereco().getId());
             entity.setId(pacienteEncontrado.getId());
             return pacienteRepository.save(entity);
         }
@@ -54,7 +57,7 @@ public class PacienteService implements GenericOperations<Paciente, Integer> {
         Paciente pacienteEncontrado = this.read(id);
 
         if(pacienteEncontrado != null){
-
+            entity.getEndereco().setId(pacienteEncontrado.getEndereco().getId());
             entity.setId(pacienteEncontrado.getId());
             return pacienteRepository.save(entity);
         }

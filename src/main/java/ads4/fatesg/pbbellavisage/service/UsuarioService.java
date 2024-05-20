@@ -1,6 +1,7 @@
 package ads4.fatesg.pbbellavisage.service;
 
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
+import ads4.fatesg.pbbellavisage.model.Endereco;
 import ads4.fatesg.pbbellavisage.model.Usuario;
 import ads4.fatesg.pbbellavisage.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,8 +28,7 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
     @Transactional(readOnly = true)
     @Override
     public Usuario read(Integer id) {
-        //return usuarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
-        return usuarioRepository.getReferenceById(id);
+        return usuarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
     }
 
     @Transactional(readOnly = true)
@@ -43,7 +43,9 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
         Usuario usuarioEncontrado = this.read(id);
 
         if(usuarioEncontrado != null){
+            entity.getEndereco().setId(usuarioEncontrado.getEndereco().getId());
             entity.setId(usuarioEncontrado.getId());
+
             return usuarioRepository.save(entity);
         }
 
@@ -56,8 +58,9 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
         Usuario usuarioEncontrado = this.read(id);
 
         if(usuarioEncontrado != null){
-
+            entity.getEndereco().setId(usuarioEncontrado.getEndereco().getId());
             entity.setId(usuarioEncontrado.getId());
+
             return usuarioRepository.save(entity);
         }
 

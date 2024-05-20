@@ -1,15 +1,13 @@
 package ads4.fatesg.pbbellavisage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "endereco")
-public class Endereco{
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Endereco extends BaseModel{
 
     @Column(name = "cep", length = 8, nullable = false)
     private String cep;
@@ -32,6 +30,8 @@ public class Endereco{
     @Column(name = "estado",nullable = false)
     private String estado;
 
+    @JsonIgnoreProperties("endereco") // Evita recursão infinita
     @OneToOne(mappedBy = "endereco")
-    private Usuario usuario;
+    private Pessoa pessoa;
+
 }
