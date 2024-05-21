@@ -4,6 +4,7 @@ import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Atendimento;
 import ads4.fatesg.pbbellavisage.model.Usuario;
 import ads4.fatesg.pbbellavisage.repository.AtendimentoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class AtendimentoService implements GenericOperations<Atendimento, Intege
     @Transactional(readOnly = true)
     @Override
     public Atendimento read(Integer id) {
-        return atendimentoRepository.getReferenceById(id);
+        return atendimentoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Especialista não encontrado!"));
     }
 
     @Transactional(readOnly = true)

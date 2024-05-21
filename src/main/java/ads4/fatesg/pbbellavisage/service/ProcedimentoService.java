@@ -3,6 +3,7 @@ package ads4.fatesg.pbbellavisage.service;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Procedimento;
 import ads4.fatesg.pbbellavisage.repository.ProcedimentoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class ProcedimentoService implements GenericOperations<Procedimento, Inte
     @Transactional(readOnly = true)
     @Override
     public Procedimento read(Integer id) {
-        return procedimentoRepository.getReferenceById(id);
+        return procedimentoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Procedimento não encontrado!"));
     }
 
     @Transactional(readOnly = true)
