@@ -21,18 +21,14 @@ public class PessoaResource implements GenericOperations<Pessoa, Integer> {
     @Autowired
     private PessoaService pessoaService;
 
-    @Autowired
-    private PessoaMapper pessoaMapper;
-
 
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Pessoa create(@Valid @RequestBody PessoaCreateDto entity) {
-        //return pessoaService.create();
-        return null;
+    public Pessoa create(@Valid @RequestBody Pessoa entity) {
+        return pessoaService.create(entity);
     }
 
     @GetMapping(
@@ -51,11 +47,11 @@ public class PessoaResource implements GenericOperations<Pessoa, Integer> {
     public List<Pessoa> readAll() {
         return pessoaService.readAll();
     }
-
     @PatchMapping(
             value = "/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
+
     )
     @Override
     public Pessoa updatePart(@PathVariable  Integer id, @Valid @RequestBody Pessoa entity) {
