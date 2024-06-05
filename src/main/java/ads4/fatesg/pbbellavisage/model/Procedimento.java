@@ -16,13 +16,13 @@ public class Procedimento extends BaseModel{
     @Column(name = "nome", nullable = false, unique = true)
     private String nome;
 
-    @Column(name = "valor",nullable = false)
-    private BigDecimal valor;
-
     @Column(name = "descricao",nullable = false)
     private String descricao;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "procedimento", fetch = FetchType.LAZY)
-    private List<Atendimento> atendimentos = new ArrayList<>();
+    @Column(name = "preco",nullable = false)
+    private BigDecimal preco;
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "agendamento_id", nullable = false)
+    private Agendamento agendamento;
 }

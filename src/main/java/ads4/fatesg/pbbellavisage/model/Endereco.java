@@ -1,8 +1,9 @@
 package ads4.fatesg.pbbellavisage.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -12,11 +13,17 @@ public class Endereco extends BaseModel{
     @Column(name = "cep", length = 8, nullable = false)
     private String cep;
 
-    @Column(name = "logradouro", nullable = false)
+    @Column(name = "logradouro", length = 100, nullable = false)
     private String logradouro;
+
+    @Column(name = "cidade", length = 100, nullable = false)
+    private String cidade;
 
     @Column(name = "rua", nullable = false)
     private String rua;
+
+    @Column(name = "uf",length = 2, nullable = false)
+    private String uf;
 
     @Column(name = "numero")
     private int numero;
@@ -24,14 +31,14 @@ public class Endereco extends BaseModel{
     @Column(name = "complemento")
     private String complemento;
 
-    @Column(name = "cidade",nullable = false)
-    private String cidade;
+    @Column(name = "data_inicio", nullable = false)
+    private LocalDateTime dataInicio;
 
-    @Column(name = "estado",nullable = false)
-    private String estado;
+    @Column(name = "data_fim")
+    private LocalDateTime dataFim;
 
-    @JsonIgnoreProperties("endereco") // Evita recursão infinita
-    @OneToOne(mappedBy = "endereco")
-    private Pessoa pessoa;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contato_id", nullable = false)
+    private Contato contato;
 
 }
