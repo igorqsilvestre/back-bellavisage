@@ -1,5 +1,7 @@
 package ads4.fatesg.pbbellavisage.model;
 
+import ads4.fatesg.pbbellavisage.dto.PessoaCreateDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -28,14 +30,17 @@ public class Pessoa extends BaseModel{
     @Enumerated(EnumType.STRING)
     private TipoSexo sexo;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pessoa",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Agendamento> agendamentos = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pessoa",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contato> contatos = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pessoa",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Especialidade> especialidades = new ArrayList<>();;
+    private List<Especialidade> especialidades = new ArrayList<>();
 
 
     public enum TipoSexo{

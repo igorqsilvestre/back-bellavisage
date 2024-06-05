@@ -1,6 +1,8 @@
 package ads4.fatesg.pbbellavisage.resource;
 
+import ads4.fatesg.pbbellavisage.dto.PessoaCreateDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
+import ads4.fatesg.pbbellavisage.mapper.PessoaMapper;
 import ads4.fatesg.pbbellavisage.model.Pessoa;
 import ads4.fatesg.pbbellavisage.service.PessoaService;
 import jakarta.validation.Valid;
@@ -19,14 +21,18 @@ public class PessoaResource implements GenericOperations<Pessoa, Integer> {
     @Autowired
     private PessoaService pessoaService;
 
+    @Autowired
+    private PessoaMapper pessoaMapper;
+
 
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Pessoa create(@Valid @RequestBody Pessoa entity) {
-        return pessoaService.create(entity);
+    public Pessoa create(@Valid @RequestBody PessoaCreateDto entity) {
+        //return pessoaService.create();
+        return null;
     }
 
     @GetMapping(

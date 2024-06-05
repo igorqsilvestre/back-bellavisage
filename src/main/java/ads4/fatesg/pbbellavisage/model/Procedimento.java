@@ -22,7 +22,7 @@ public class Procedimento extends BaseModel{
     @Column(name = "preco",nullable = false)
     private BigDecimal preco;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agendamento_id", nullable = false)
     private Agendamento agendamento;
 }
