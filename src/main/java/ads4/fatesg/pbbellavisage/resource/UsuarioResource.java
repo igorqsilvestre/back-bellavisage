@@ -1,8 +1,8 @@
 package ads4.fatesg.pbbellavisage.resource;
 
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
-import ads4.fatesg.pbbellavisage.model.Especialidade;
-import ads4.fatesg.pbbellavisage.service.EspecialidadeService;
+import ads4.fatesg.pbbellavisage.model.Usuario;
+import ads4.fatesg.pbbellavisage.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1/especialidade")
-public class EspecialidadeResource implements GenericOperations<Especialidade, Integer> {
+@RequestMapping(value = "api/v1/usuario")
+public class UsuarioResource implements GenericOperations<Usuario, Integer> {
 
     @Autowired
-    private EspecialidadeService especialidadeService;
+    private UsuarioService usuarioService;
 
 
     @PostMapping(
@@ -25,8 +25,8 @@ public class EspecialidadeResource implements GenericOperations<Especialidade, I
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Especialidade create(@Valid @RequestBody Especialidade entity) {
-        return especialidadeService.create(entity);
+    public Usuario create(@Valid @RequestBody Usuario entity) {
+        return usuarioService.create(entity);
     }
 
     @GetMapping(
@@ -34,16 +34,16 @@ public class EspecialidadeResource implements GenericOperations<Especialidade, I
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Especialidade read(@PathVariable  Integer id) {
-        return especialidadeService.read(id);
+    public Usuario read(@PathVariable  Integer id) {
+        return usuarioService.read(id);
     }
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public List<Especialidade> readAll() {
-        return especialidadeService.readAll();
+    public List<Usuario> readAll() {
+        return usuarioService.readAll();
     }
 
     @PatchMapping(
@@ -52,8 +52,8 @@ public class EspecialidadeResource implements GenericOperations<Especialidade, I
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Especialidade updatePart(@PathVariable  Integer id, @Valid @RequestBody Especialidade entity) {
-        return especialidadeService.updatePart(id,entity);
+    public Usuario updatePart(@PathVariable  Integer id, @Valid @RequestBody Usuario entity) {
+        return usuarioService.updatePart(id,entity);
     }
 
     @PutMapping(
@@ -62,8 +62,8 @@ public class EspecialidadeResource implements GenericOperations<Especialidade, I
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Especialidade updateAll(@PathVariable Integer id, @Valid @RequestBody Especialidade entity) {
-        return especialidadeService.updateAll(id,entity);
+    public Usuario updateAll(@PathVariable Integer id, @Valid @RequestBody Usuario entity) {
+        return usuarioService.updateAll(id,entity);
     }
 
     @DeleteMapping(
@@ -71,6 +71,6 @@ public class EspecialidadeResource implements GenericOperations<Especialidade, I
     )
     @Override
     public void delete(@PathVariable Integer id) {
-        especialidadeService.delete(id);
+        usuarioService.delete(id);
     }
 }

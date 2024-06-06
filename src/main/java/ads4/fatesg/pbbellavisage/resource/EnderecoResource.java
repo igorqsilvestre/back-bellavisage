@@ -3,13 +3,12 @@ package ads4.fatesg.pbbellavisage.resource;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Endereco;
 import ads4.fatesg.pbbellavisage.service.EnderecoService;
-import lombok.extern.slf4j.Slf4j;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
 
 @Slf4j

@@ -1,10 +1,8 @@
 package ads4.fatesg.pbbellavisage.resource;
 
-import ads4.fatesg.pbbellavisage.dto.PessoaCreateDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
-import ads4.fatesg.pbbellavisage.mapper.PessoaMapper;
-import ads4.fatesg.pbbellavisage.model.Pessoa;
-import ads4.fatesg.pbbellavisage.service.PessoaService;
+import ads4.fatesg.pbbellavisage.model.Paciente;
+import ads4.fatesg.pbbellavisage.service.PacienteService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1/pessoa")
-public class PessoaResource implements GenericOperations<Pessoa, Integer> {
+@RequestMapping(value = "api/v1/paciente")
+public class PacienteResource implements GenericOperations<Paciente, Integer> {
 
     @Autowired
-    private PessoaService pessoaService;
+    private PacienteService pacienteService;
 
 
     @PostMapping(
@@ -27,8 +25,8 @@ public class PessoaResource implements GenericOperations<Pessoa, Integer> {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Pessoa create(@Valid @RequestBody Pessoa entity) {
-        return pessoaService.create(entity);
+    public Paciente create(@Valid @RequestBody Paciente entity) {
+        return pacienteService.create(entity);
     }
 
     @GetMapping(
@@ -36,26 +34,26 @@ public class PessoaResource implements GenericOperations<Pessoa, Integer> {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Pessoa read(@PathVariable  Integer id) {
-        return pessoaService.read(id);
+    public Paciente read(@PathVariable  Integer id) {
+        return pacienteService.read(id);
     }
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public List<Pessoa> readAll() {
-        return pessoaService.readAll();
+    public List<Paciente> readAll() {
+        return pacienteService.readAll();
     }
+
     @PatchMapping(
             value = "/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
-
     )
     @Override
-    public Pessoa updatePart(@PathVariable  Integer id, @Valid @RequestBody Pessoa entity) {
-        return pessoaService.updatePart(id,entity);
+    public Paciente updatePart(@PathVariable  Integer id, @Valid @RequestBody Paciente entity) {
+        return pacienteService.updatePart(id,entity);
     }
 
     @PutMapping(
@@ -64,8 +62,8 @@ public class PessoaResource implements GenericOperations<Pessoa, Integer> {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Pessoa updateAll(@PathVariable Integer id, @Valid @RequestBody Pessoa entity) {
-        return pessoaService.updateAll(id,entity);
+    public Paciente updateAll(@PathVariable Integer id, @Valid @RequestBody Paciente entity) {
+        return pacienteService.updateAll(id,entity);
     }
 
     @DeleteMapping(
@@ -73,6 +71,6 @@ public class PessoaResource implements GenericOperations<Pessoa, Integer> {
     )
     @Override
     public void delete(@PathVariable Integer id) {
-        pessoaService.delete(id);
+        pacienteService.delete(id);
     }
 }

@@ -3,7 +3,6 @@ package ads4.fatesg.pbbellavisage.service;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Endereco;
 import ads4.fatesg.pbbellavisage.repository.EnderecoRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class EnderecoService implements GenericOperations<Endereco, Integer> {
     @Transactional(readOnly = true)
     @Override
     public Endereco read(Integer id) {
-        return enderecoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado!"));
+        return enderecoRepository.getReferenceById(id);
     }
 
     @Transactional(readOnly = true)

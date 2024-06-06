@@ -1,8 +1,8 @@
 package ads4.fatesg.pbbellavisage.resource;
 
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
-import ads4.fatesg.pbbellavisage.model.Telefone;
-import ads4.fatesg.pbbellavisage.service.TelefoneService;
+import ads4.fatesg.pbbellavisage.model.Especialista;
+import ads4.fatesg.pbbellavisage.service.EspecialistaService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1/telefone")
-public class TelefoneResource implements GenericOperations<Telefone, Integer> {
+@RequestMapping(value = "api/v1/especialista")
+public class EspecialistaResource implements GenericOperations<Especialista, Integer> {
 
     @Autowired
-    private TelefoneService telefoneService;
+    private EspecialistaService especialistaService;
 
 
     @PostMapping(
@@ -25,8 +25,8 @@ public class TelefoneResource implements GenericOperations<Telefone, Integer> {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Telefone create(@Valid @RequestBody Telefone entity) {
-        return telefoneService.create(entity);
+    public Especialista create(@Valid @RequestBody Especialista entity) {
+        return especialistaService.create(entity);
     }
 
     @GetMapping(
@@ -34,16 +34,16 @@ public class TelefoneResource implements GenericOperations<Telefone, Integer> {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Telefone read(@PathVariable  Integer id) {
-        return telefoneService.read(id);
+    public Especialista read(@PathVariable  Integer id) {
+        return especialistaService.read(id);
     }
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public List<Telefone> readAll() {
-        return telefoneService.readAll();
+    public List<Especialista> readAll() {
+        return especialistaService.readAll();
     }
 
     @PatchMapping(
@@ -52,8 +52,8 @@ public class TelefoneResource implements GenericOperations<Telefone, Integer> {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Telefone updatePart(@PathVariable  Integer id, @Valid @RequestBody Telefone entity) {
-        return telefoneService.updatePart(id,entity);
+    public Especialista updatePart(@PathVariable  Integer id, @Valid @RequestBody Especialista entity) {
+        return especialistaService.updatePart(id,entity);
     }
 
     @PutMapping(
@@ -62,8 +62,8 @@ public class TelefoneResource implements GenericOperations<Telefone, Integer> {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Telefone updateAll(@PathVariable Integer id, @Valid @RequestBody Telefone entity) {
-        return telefoneService.updateAll(id,entity);
+    public Especialista updateAll(@PathVariable Integer id, @Valid @RequestBody Especialista entity) {
+        return especialistaService.updateAll(id,entity);
     }
 
     @DeleteMapping(
@@ -71,6 +71,6 @@ public class TelefoneResource implements GenericOperations<Telefone, Integer> {
     )
     @Override
     public void delete(@PathVariable Integer id) {
-        telefoneService.delete(id);
+        especialistaService.delete(id);
     }
 }
