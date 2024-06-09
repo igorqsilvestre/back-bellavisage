@@ -1,8 +1,8 @@
 package ads4.fatesg.pbbellavisage.resource;
 
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
-import ads4.fatesg.pbbellavisage.model.Atendimento;
-import ads4.fatesg.pbbellavisage.service.AtendimentoService;
+import ads4.fatesg.pbbellavisage.model.Agendamento;
+import ads4.fatesg.pbbellavisage.service.AgendamentoService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "api/v1/atendimento")
-public class AtendimentoResource implements GenericOperations<Atendimento, Integer> {
+@RequestMapping(value = "api/v1/agendamento")
+public class AgendamentoResource implements GenericOperations<Agendamento, Integer> {
 
     @Autowired
-    private AtendimentoService atendimentoService;
+    private AgendamentoService agendamentoService;
 
 
     @PostMapping(
@@ -25,8 +25,8 @@ public class AtendimentoResource implements GenericOperations<Atendimento, Integ
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Atendimento create(@Valid @RequestBody Atendimento entity) {
-        return atendimentoService.create(entity);
+    public Agendamento create(@Valid @RequestBody Agendamento entity) {
+        return agendamentoService.create(entity);
     }
 
     @GetMapping(
@@ -34,16 +34,16 @@ public class AtendimentoResource implements GenericOperations<Atendimento, Integ
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Atendimento read(@PathVariable  Integer id) {
-        return atendimentoService.read(id);
+    public Agendamento read(@PathVariable  Integer id) {
+        return agendamentoService.read(id);
     }
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public List<Atendimento> readAll() {
-        return atendimentoService.readAll();
+    public List<Agendamento> readAll() {
+        return agendamentoService.readAll();
     }
 
     @PatchMapping(
@@ -52,8 +52,8 @@ public class AtendimentoResource implements GenericOperations<Atendimento, Integ
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Atendimento updatePart(@PathVariable  Integer id, @Valid @RequestBody Atendimento entity) {
-        return atendimentoService.updatePart(id,entity);
+    public Agendamento updatePart(@PathVariable  Integer id, @Valid @RequestBody Agendamento entity) {
+        return agendamentoService.updatePart(id,entity);
     }
 
     @PutMapping(
@@ -62,8 +62,8 @@ public class AtendimentoResource implements GenericOperations<Atendimento, Integ
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
-    public Atendimento updateAll(@PathVariable Integer id, @Valid @RequestBody Atendimento entity) {
-        return atendimentoService.updateAll(id,entity);
+    public Agendamento updateAll(@PathVariable Integer id, @Valid @RequestBody Agendamento entity) {
+        return agendamentoService.updateAll(id,entity);
     }
 
     @DeleteMapping(
@@ -71,6 +71,6 @@ public class AtendimentoResource implements GenericOperations<Atendimento, Integ
     )
     @Override
     public void delete(@PathVariable Integer id) {
-        atendimentoService.delete(id);
+        agendamentoService.delete(id);
     }
 }

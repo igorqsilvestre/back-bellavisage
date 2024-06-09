@@ -7,17 +7,11 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "atendimento")
-public class Atendimento extends BaseModel{
+@Table(name = "agendamento")
+public class Agendamento extends BaseModel{
 
     @Column(name = "data_hora", nullable = false)
-    private LocalDateTime data_hora;
-
-    @Column(name = "nota", length = 10)
-    private Integer nota;
-
-    @Column(name = "comentario")
-    private String comentario;
+    private LocalDateTime dataHora;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id", referencedColumnName = "id")

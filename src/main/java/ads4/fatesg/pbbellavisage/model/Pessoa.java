@@ -14,7 +14,7 @@ public class Pessoa extends BaseModel{
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "email", length = 30, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "telefone", length = 11, nullable = false)

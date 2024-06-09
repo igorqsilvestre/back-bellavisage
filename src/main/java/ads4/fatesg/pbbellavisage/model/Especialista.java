@@ -12,14 +12,14 @@ import java.util.List;
 @Table(name = "especialista")
 public class Especialista extends Pessoa{
 
-    @Column(name = "numero_registro", length = 20, nullable = false, unique = true)
-    private Integer numero_registro;
+    @Column(name = "numero_registro", nullable = false, unique = true)
+    private Integer numeroRegistro;
 
-    @Column(name = "funcao", length = 100, nullable = false)
+    @Column(name = "funcao", nullable = false)
     private String funcao;
 
     @JsonIgnore
     @OneToMany(mappedBy = "especialista", fetch = FetchType.LAZY)
-    private List<Atendimento> atendimentos = new ArrayList<>();
+    private List<Agendamento> agendamentos = new ArrayList<>();
 
 }

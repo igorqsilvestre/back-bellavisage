@@ -12,11 +12,11 @@ public class Usuario extends Pessoa{
     private String senha;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "perfilAcesso", length = 20, nullable = false )
-    private PerfilAcesso perfilAcesso;
+    @Column(name = "perfilsAcesso", length = 20, nullable = false )
+    private PerfilAcesso perfilsAcesso;
 
 
     public enum PerfilAcesso {
-        ADMINISTRADOR, USUARIO
+        Administrador, Cliente
     }
 }

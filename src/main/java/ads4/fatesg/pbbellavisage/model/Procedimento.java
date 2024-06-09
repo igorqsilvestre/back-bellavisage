@@ -24,5 +24,5 @@ public class Procedimento extends BaseModel{
 
     @JsonIgnore
     @OneToMany(mappedBy = "procedimento", fetch = FetchType.LAZY)
-    private List<Atendimento> atendimentos = new ArrayList<>();
+    private List<Agendamento> agendamentos = new ArrayList<>();
 }
