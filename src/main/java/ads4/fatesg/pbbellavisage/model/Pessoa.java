@@ -17,7 +17,7 @@ public class Pessoa extends BaseModel{
     @Column(name = "email", length = 30, nullable = false)
     private String email;
 
-    @Column(name = "telefone", length = 30, nullable = false)
+    @Column(name = "telefone", length = 11, nullable = false)
     private String telefone;
 
     @JsonIgnoreProperties("pessoa") // Evita recursão infinita

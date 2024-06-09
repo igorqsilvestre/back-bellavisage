@@ -15,9 +15,6 @@ public class Endereco extends BaseModel{
     @Column(name = "cep", length = 8, nullable = false)
     private String cep;
 
-    @Column(name = "logradouro", nullable = false)
-    private String logradouro;
-
     @Column(name = "rua", nullable = false)
     private String rua;
 

@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "usuario")
 public class Usuario extends Pessoa{
 
-    @Column(name = "senha", length = 8, nullable = false )
+    @Column(name = "senha", length = 16, nullable = false )
     private String senha;
 
     @Enumerated(EnumType.STRING)
