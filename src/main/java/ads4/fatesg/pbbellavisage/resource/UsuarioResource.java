@@ -1,5 +1,6 @@
 package ads4.fatesg.pbbellavisage.resource;
 
+import ads4.fatesg.pbbellavisage.dto.LoginDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Usuario;
 import ads4.fatesg.pbbellavisage.service.UsuarioService;
@@ -39,8 +40,18 @@ public class UsuarioResource implements GenericOperations<Usuario, Integer> {
     }
 
     @GetMapping(
+            value = "/email",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
+    public boolean existsEmail(@RequestParam String email) {
+        return usuarioService.existsUsuarioPorEmail(email);
+
+    }
+
+    @GetMapping(
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+
     @Override
     public List<Usuario> readAll() {
         return usuarioService.readAll();
@@ -54,6 +65,17 @@ public class UsuarioResource implements GenericOperations<Usuario, Integer> {
     @Override
     public Usuario updatePart(@PathVariable  Integer id, @Valid @RequestBody Usuario entity) {
         return usuarioService.updatePart(id,entity);
+    }
+
+    @PatchMapping(
+            value = "/email",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public Usuario updatePassword(@RequestBody LoginDto request) {
+        String email = request.getEmail();
+        String senha = request.getSenha();
+        return usuarioService.updatePartPassword(email,senha);
     }
 
     @PutMapping(

@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:4200") // Permitir requisições do Angular localhost
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedMethods("GET", "POST", "PUT", "PATCH","DELETE", "OPTIONS")
                 .allowedHeaders("Origin", "X-Requested-With", "Content-Type", "Accept")
                 .maxAge(3600); // Tempo de validade do pre-flight request (1 hora)
     }

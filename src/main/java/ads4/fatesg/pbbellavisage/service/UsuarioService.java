@@ -31,9 +31,19 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
     }
 
     @Transactional(readOnly = true)
+    public Usuario readByEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
+    }
+
+    @Transactional(readOnly = true)
     @Override
     public List<Usuario> readAll() {
         return usuarioRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsUsuarioPorEmail(String email){
+        return usuarioRepository.existsByEmail(email);
     }
 
     @Override
@@ -50,6 +60,18 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
 
         return new Usuario();
     }
+
+    public Usuario updatePartPassword(String email, String senha) {
+        Usuario usuarioEncontrado = this.readByEmail(email);
+        System.out.println(senha);
+        if(usuarioEncontrado != null){
+            usuarioEncontrado.setSenha(senha);
+            return usuarioEncontrado;
+        }
+
+        return new Usuario();
+    }
+
 
     @Override
     public Usuario updateAll(Integer id, Usuario entity) {
@@ -70,4 +92,6 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
     public void delete(Integer id) {
         usuarioRepository.deleteById(id);
     }
+
+
 }
