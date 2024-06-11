@@ -48,6 +48,17 @@ public class UsuarioResource implements GenericOperations<Usuario, Integer> {
 
     }
 
+    @PostMapping(
+            value = "/logar",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public boolean existsLogin(@RequestBody LoginDto request) {
+        String email = request.getEmail();
+        String senha = request.getSenha();
+        return usuarioService.existsUsuario(email,senha);
+    }
+
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )

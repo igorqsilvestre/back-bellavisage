@@ -46,6 +46,11 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
         return usuarioRepository.existsByEmail(email);
     }
 
+    @Transactional(readOnly = true)
+    public boolean existsUsuario(String email, String senha) {
+        return usuarioRepository.existsByEmaileSenha(email,senha);
+    }
+
     @Override
     public Usuario updatePart(Integer id, Usuario entity) {
 
@@ -92,6 +97,7 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
     public void delete(Integer id) {
         usuarioRepository.deleteById(id);
     }
+
 
 
 }
