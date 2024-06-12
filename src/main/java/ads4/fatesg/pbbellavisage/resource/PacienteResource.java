@@ -46,6 +46,15 @@ public class PacienteResource implements GenericOperations<Paciente, Integer> {
         return pacienteService.readAll();
     }
 
+    @GetMapping(
+            value = "/cpf/{cpf}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public boolean existsCPF(@PathVariable String cpf) {
+        return pacienteService.existsCPF(cpf);
+
+    }
+
     @PatchMapping(
             value = "/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},

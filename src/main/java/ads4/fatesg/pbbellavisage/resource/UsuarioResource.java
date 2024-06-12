@@ -45,7 +45,6 @@ public class UsuarioResource implements GenericOperations<Usuario, Integer> {
     )
     public boolean existsEmail(@RequestParam String email) {
         return usuarioService.existsUsuarioPorEmail(email);
-
     }
 
     @PostMapping(

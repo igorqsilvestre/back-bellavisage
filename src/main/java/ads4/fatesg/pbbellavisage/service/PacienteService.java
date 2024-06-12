@@ -6,8 +6,11 @@ import ads4.fatesg.pbbellavisage.repository.PacienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -35,6 +38,13 @@ public class PacienteService implements GenericOperations<Paciente, Integer> {
     public List<Paciente> readAll() {
         return pacienteRepository.findAll();
     }
+
+
+    @Transactional(readOnly = true)
+    public boolean existsCPF(String cpf) {
+        return pacienteRepository.existsByCPF(cpf);
+    }
+
 
     @Override
     public Paciente updatePart(Integer id, Paciente entity) {
@@ -69,4 +79,7 @@ public class PacienteService implements GenericOperations<Paciente, Integer> {
     public void delete(Integer id) {
         pacienteRepository.deleteById(id);
     }
+
+
+
 }
