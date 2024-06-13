@@ -41,8 +41,8 @@ public class PacienteService implements GenericOperations<Paciente, Integer> {
 
 
     @Transactional(readOnly = true)
-    public boolean existsCPF(String cpf) {
-        return pacienteRepository.existsByCPF(cpf);
+    public Paciente readByCPF(String cpf) {
+        return pacienteRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado!"));
     }
 
 

@@ -50,8 +50,8 @@ public class PacienteResource implements GenericOperations<Paciente, Integer> {
             value = "/cpf/{cpf}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public boolean existsCPF(@PathVariable String cpf) {
-        return pacienteService.existsCPF(cpf);
+    public Paciente readByCPF(@PathVariable String cpf) {
+        return pacienteService.readByCPF(cpf);
 
     }
 
