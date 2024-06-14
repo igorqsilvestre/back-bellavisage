@@ -10,8 +10,8 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "procedimento")
-public class Procedimento extends BaseModel{
+@Table(name = "tratamento")
+public class Tratamento extends BaseModel{
 
     @Column(name = "nome", nullable = false, unique = true)
     private String nome;
@@ -19,10 +19,20 @@ public class Procedimento extends BaseModel{
     @Column(name = "valor",nullable = false)
     private BigDecimal valor;
 
+    @Lob
     @Column(name = "descricao",nullable = false)
     private String descricao;
 
+    @Column(name = "imagem")
+    private String imagem;
+
+
     @JsonIgnore
-    @OneToMany(mappedBy = "procedimento", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "tratamentos", fetch = FetchType.LAZY)
+    private List<Especialista> especialistas = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "tratamento", fetch = FetchType.LAZY)
     private List<Agendamento> agendamentos = new ArrayList<>();
 }
