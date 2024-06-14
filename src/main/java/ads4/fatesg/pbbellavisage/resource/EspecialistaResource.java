@@ -39,6 +39,15 @@ public class EspecialistaResource implements GenericOperations<Especialista, Int
     }
 
     @GetMapping(
+            value = "/registro/{registro}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public Especialista readByRegistro(@PathVariable Integer registro) {
+        return especialistaService.readByRegistro(registro);
+
+    }
+
+    @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
