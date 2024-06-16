@@ -22,9 +22,6 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
 
     @Autowired
     private TratamentoService tratamentoService;
-    
-    @Autowired
-    private EspecialistaService especialistaService;
 
 
     @PostMapping(
@@ -34,32 +31,6 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
     @Override
     public Tratamento create(@Valid @RequestBody Tratamento entity) {
         return tratamentoService.create(entity);
-    }
-
-    @Transactional
-    @PostMapping("/{tratamentoId}/especialista/{especialistaId}")
-    public Tratamento addEspecialistaNoTratamento(
-            @PathVariable Integer tratamentoId,
-            @PathVariable Integer especialistaId) {
-
-        Tratamento tratamento = tratamentoService.read(tratamentoId);
-        Especialista especialista = especialistaService.read((especialistaId));
-
-        tratamento.getEspecialistas().add(especialista);
-        especialista.getTratamentos().add(tratamento);
-
-        tratamentoService.updateAll(tratamentoId, tratamento);
-        especialistaService.updateAll(especialistaId, especialista);
-        return tratamento;
-    }
-
-    @Transactional(readOnly = true)
-    @GetMapping("/{tratamentoId}/especialista")
-    public List<Especialista> readEspecialistasDoTratamento(@PathVariable Integer tratamentoId) {
-
-        Tratamento tratamento = tratamentoService.read(tratamentoId);
-        Hibernate.initialize(tratamento.getEspecialistas());
-        return tratamento.getEspecialistas();
     }
 
     @GetMapping(

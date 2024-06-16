@@ -4,12 +4,12 @@ server:
 project:
   name: 'pb-bellavisage'
   version: '0.0.1-SNAPSHOT'
-  description: 'Demo project for Spring Boot'
+  description: '@project.description@'
 info:
   build:
     artifact: "pb-bellavisage"
-    name: "pb-bellavisage"
-    description: 'Demo project for Spring Boot'
+    name: "@project.name@"
+    description: '@project.description@'
     version: '0.0.1-SNAPSHOT'
 
 application:
