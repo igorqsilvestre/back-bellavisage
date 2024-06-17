@@ -19,11 +19,11 @@ application:
 spring:
   output:
     ansi:
-      enabled: ${SPRING_OUTPUT_ANSI_ENABLE} #always
+      enabled:  ${SPRING_OUTPUT_ANSI_ENABLE:ALWAYS} #always
 
   banner:
-    charset: ${SPRING_BANNER_CHARSET} #UTF-8;
-    location: ${SPRING_BANNER_LOCATION} #classpath:/banner.txt;
+    charset: ${SPRING_BANNER_CHARSET:UTF-8} #UTF-8;
+    location: ${SPRING_BANNER_LOCATION:CLASSPATH:/BANNER.TXT} #classpath:/banner.txt;
 
 
   #Configuração do JPA para uso do Hibernate
