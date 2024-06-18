@@ -29,7 +29,7 @@ public class Agendamento extends BaseModel{
     private Especialista especialista;
 
     @ManyToOne
-    @JoinColumn(name = "procedimento_id", referencedColumnName = "id")
+    @JoinColumn(name = "tratamento_id", referencedColumnName = "id")
     private Tratamento tratamento;
 
 }
