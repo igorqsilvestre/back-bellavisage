@@ -1,14 +1,17 @@
 package ads4.fatesg.pbbellavisage.service;
 
+import ads4.fatesg.pbbellavisage.dto.AgendamentoCreateDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Agendamento;
 import ads4.fatesg.pbbellavisage.repository.AgendamentoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -28,6 +31,11 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     @Override
     public Agendamento read(Integer id) {
         return agendamentoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Agendamento não encontrado!"));
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByDataHora(Integer id, String data, String hora) {
+        return agendamentoRepository.existsByDataEhora(id, data,hora);
     }
 
     @Transactional(readOnly = true)

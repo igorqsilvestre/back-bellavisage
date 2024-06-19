@@ -1,6 +1,5 @@
 package ads4.fatesg.pbbellavisage.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +10,11 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class AgendamentoCreateDto {
+    private Integer id;
     @NotNull
-    private LocalDateTime data;
+    private String data;
     @NotNull
-    private LocalDateTime hora;
+    private String hora;
     @NotNull
     private BigDecimal valor;
     @NotNull
@@ -23,4 +23,6 @@ public class AgendamentoCreateDto {
     private Integer especialista;
     @NotNull
     private Integer tratamento;
+    private String status;
+    private Integer avaliacao;
 }

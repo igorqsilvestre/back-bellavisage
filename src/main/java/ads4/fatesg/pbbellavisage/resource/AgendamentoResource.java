@@ -53,6 +53,7 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
         agendamento.setPaciente(paciente);
         agendamento.setEspecialista(especialista);
         agendamento.setTratamento(tratamento);
+        agendamento.setStatus(Agendamento.StatusAgendamento.Aberto);
         return agendamentoService.create(agendamento);
     }
 
@@ -68,6 +69,14 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
     @Override
     public Agendamento read(@PathVariable  Integer id) {
         return agendamentoService.read(id);
+    }
+
+    @PostMapping(
+            value = "/exists/dataHora",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public boolean existDatahora(@Valid @RequestBody AgendamentoCreateDto entity) {
+        return agendamentoService.existsByDataHora(entity.getId(), entity.getData(), entity.getHora());
     }
 
     @GetMapping(
@@ -93,6 +102,23 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
+    public Agendamento atualizaAgendamentoComDto(@PathVariable Integer id, @Valid @RequestBody AgendamentoCreateDto entity) {
+        Paciente paciente = pacienteService.read(entity.getPaciente());
+        Especialista especialista = especialistaService.read(entity.getEspecialista());
+        Tratamento tratamento = tratamentoService.read(entity.getTratamento());
+
+        Agendamento agendamento = new Agendamento();
+        agendamento.setData(entity.getData());
+        agendamento.setHora(entity.getHora());
+        agendamento.setValor(entity.getValor());
+        agendamento.setPaciente(paciente);
+        agendamento.setEspecialista(especialista);
+        agendamento.setTratamento(tratamento);
+        agendamento.setStatus(Agendamento.StatusAgendamento.valueOf(entity.getStatus()));
+        agendamento.setAvaliacao(entity.getAvaliacao());
+        return agendamentoService.updateAll(id, agendamento);
+    }
+
     @Override
     public Agendamento updateAll(@PathVariable Integer id, @Valid @RequestBody Agendamento entity) {
         return agendamentoService.updateAll(id,entity);

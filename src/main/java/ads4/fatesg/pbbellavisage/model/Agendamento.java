@@ -12,13 +12,20 @@ import java.time.LocalDateTime;
 public class Agendamento extends BaseModel{
 
     @Column(name = "data", nullable = false)
-    private LocalDateTime data;
+    private String data;
 
     @Column(name = "hora", nullable = false)
-    private LocalDateTime hora;
+    private String hora;
 
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private StatusAgendamento status;
+
+    @Column(name = "avaliacao")
+    private Integer avaliacao;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id", referencedColumnName = "id")
@@ -32,4 +39,7 @@ public class Agendamento extends BaseModel{
     @JoinColumn(name = "tratamento_id", referencedColumnName = "id")
     private Tratamento tratamento;
 
+    public enum StatusAgendamento {
+        Aberto, Concluido
+    }
 }
