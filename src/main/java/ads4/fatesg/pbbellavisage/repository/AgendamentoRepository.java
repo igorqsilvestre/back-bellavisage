@@ -5,6 +5,7 @@ import ads4.fatesg.pbbellavisage.model.Agendamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -18,5 +19,5 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
             "FROM Agendamento a " +
             "WHERE (:id IS NULL AND a.data = :data AND a.hora = :hora) " +
             "OR (:id IS NOT NULL AND a.id <> :id AND a.data = :data AND a.hora = :hora)")
-    boolean existsByDataEhora(Integer id, String data, String hora);
+    boolean existsByDataEhora(Integer id, LocalDate data, String hora);
 }

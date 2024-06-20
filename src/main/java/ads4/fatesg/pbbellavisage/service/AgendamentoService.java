@@ -11,6 +11,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByDataHora(Integer id, String data, String hora) {
+    public boolean existsByDataHora(Integer id, LocalDate data, String hora) {
         return agendamentoRepository.existsByDataEhora(id, data,hora);
     }
 

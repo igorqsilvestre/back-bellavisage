@@ -19,7 +19,7 @@ public class Tratamento extends BaseModel{
     private String nome;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @Column(name = "valor", nullable = false)
+    @Column(name = "valor",     nullable = false)
     private BigDecimal valor;
 
     @Lob
