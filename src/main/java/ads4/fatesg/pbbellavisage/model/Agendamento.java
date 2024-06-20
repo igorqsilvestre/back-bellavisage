@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 public class Agendamento extends BaseModel{
 
     @Column(name = "data", nullable = false)
-    private String data;
+    private LocalDate data;
 
     @Column(name = "hora", nullable = false)
     private String hora;

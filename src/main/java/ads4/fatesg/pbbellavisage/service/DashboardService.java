@@ -4,6 +4,7 @@ import ads4.fatesg.pbbellavisage.model.Agendamento;
 import ads4.fatesg.pbbellavisage.model.ReportBar;
 import ads4.fatesg.pbbellavisage.model.ReportPizza;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,11 @@ public class DashboardService {
         "where a.status = :status " +
         "group by t.nome";
 
-    private static final String REPORT_BAR_QUERY =  "select a.data, sum(a.valor) valor " +
-        "from Agendamento a " +
+    private static final String REPORT_BAR_QUERY =  "select date_format(a.data, \"%m/%y\") data, sum(a.valor) valor " +
+        "from agendamento a " +
         "where a.status = :status " +
-        "group by a.data " +
-        "order by a.data ";
+        "group by date_format(a.data, \"%m/%y\") " +
+        "order by date_format(a.data, \"%m/%y\") ";
     private EntityManager entityManager;
 
     public DashboardService(
@@ -42,11 +43,11 @@ public class DashboardService {
     }
 
     public List<ReportBar> getBarReport() {
-        TypedQuery<ReportBar> query = this.entityManager.createQuery(
-            DashboardService.REPORT_BAR_QUERY, 
-            ReportBar.class
+        Query query = this.entityManager.createNativeQuery(
+                DashboardService.REPORT_BAR_QUERY,
+                ReportBar.class
         );
-        query.setParameter("status", Agendamento.StatusAgendamento.Concluido);
+        query.setParameter("status", Agendamento.StatusAgendamento.Concluido.toString());
         List<ReportBar> result = query.getResultList();
         return result;
     }
