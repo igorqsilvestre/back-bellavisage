@@ -40,6 +40,6 @@ spring:
   #Configuração da origem do banco de dados
   datasource:
     name: mysql
-    url: jdbc:mysql://localhost:3306/bellavisage2
+    url: jdbc:mysql://localhost:3306/bellavisage
     username: root
     password: aluno
