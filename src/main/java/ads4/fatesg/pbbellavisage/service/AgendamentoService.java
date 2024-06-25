@@ -35,7 +35,7 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByDataHora(Integer id, LocalDate data, String hora) {
+    public boolean existsByDataHora(Integer id, String data, String hora) {
         return agendamentoRepository.existsByDataEhora(id, data,hora);
     }
 

@@ -19,5 +19,5 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
             "FROM Agendamento a " +
             "WHERE (:id IS NULL AND a.data = :data AND a.hora = :hora) " +
             "OR (:id IS NOT NULL AND a.id <> :id AND a.data = :data AND a.hora = :hora)")
-    boolean existsByDataEhora(Integer id, LocalDate data, String hora);
+    boolean existsByDataEhora(Integer id, String data, String hora);
 }

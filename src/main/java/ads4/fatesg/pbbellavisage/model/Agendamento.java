@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Agendamento extends BaseModel{
 
     @Column(name = "data", nullable = false)
-    private LocalDate data;
+    private String data;
 
     @Column(name = "hora", nullable = false)
     private String hora;

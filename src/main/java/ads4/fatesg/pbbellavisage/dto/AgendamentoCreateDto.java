@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class AgendamentoCreateDto {
     private Integer id;
     @NotNull
-    private LocalDate data;
+    private String data;
     @NotNull
     private String hora;
     @NotNull
