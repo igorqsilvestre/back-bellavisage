@@ -15,20 +15,23 @@ public class Endereco extends BaseModel{
     @Column(name = "cep", length = 8, nullable = false)
     private String cep;
 
-    @Column(name = "rua", nullable = false)
-    private String rua;
+    @Column(name = "logradouro", nullable = false)
+    private String logradouro;
 
-    @Column(name = "numero")
-    private int numero;
-
-    @Column(name = "complemento")
-    private String complemento;
+    @Column(name = "bairro", nullable = false)
+    private String bairro;
 
     @Column(name = "cidade",nullable = false)
     private String cidade;
 
     @Column(name = "estado",nullable = false)
     private String estado;
+
+    @Column(name = "numero")
+    private int numero;
+
+    @Column(name = "complemento")
+    private String complemento;
 
     @JsonIgnoreProperties("endereco") // Evita recursão infinita
     @OneToOne(mappedBy = "endereco")

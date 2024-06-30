@@ -32,7 +32,7 @@ class UsuarioRepositoryTest {
         endereco.setComplemento("Quadra 38, Lote 11");
         endereco.setEstado("Goiás");
         endereco.setNumero(0);
-        endereco.setRua("Rua b");
+        endereco.setBairro("Rua b");
 
         // Salva o endereço no banco de dados
         Endereco enderecoSalvo = this.enderecoRepository.save(endereco);
@@ -65,7 +65,7 @@ class UsuarioRepositoryTest {
         endereco.setComplemento("Quadra 38, Lote 11");
         endereco.setEstado("Goiás");
         endereco.setNumero(0);
-        endereco.setRua("Rua b");
+        endereco.setBairro("Rua b");
 
         // Salva o endereço no banco de dados
         Endereco enderecoSalvo = this.enderecoRepository.save(endereco);
@@ -98,7 +98,7 @@ class UsuarioRepositoryTest {
         endereco.setComplemento("Quadra 1, Lote 5");
         endereco.setEstado("Goiás");
         endereco.setNumero(0);
-        endereco.setRua("Rua E");
+        endereco.setBairro("Rua E");
 
         // Salva o endereço no banco de dados
         Endereco enderecoSalvo = this.enderecoRepository.save(endereco);
@@ -130,7 +130,7 @@ class UsuarioRepositoryTest {
         endereco.setComplemento("Quadra 1, Lote 5");
         endereco.setEstado("Goiás");
         endereco.setNumero(0);
-        endereco.setRua("Rua E");
+        endereco.setBairro("Rua E");
 
         // Salva o endereço no banco de dados
         Endereco enderecoSalvo = this.enderecoRepository.save(endereco);
