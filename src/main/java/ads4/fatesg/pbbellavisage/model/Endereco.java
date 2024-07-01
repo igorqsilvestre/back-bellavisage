@@ -28,7 +28,7 @@ public class Endereco extends BaseModel{
     private String estado;
 
     @Column(name = "numero")
-    private int numero;
+    private Integer numero;
 
     @Column(name = "complemento")
     private String complemento;

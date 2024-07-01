@@ -35,6 +35,7 @@ class PacienteRepositoryTest {
         endereco.setEstado("Goiás");
         endereco.setNumero(11);
         endereco.setBairro("Vila barbosa");
+        endereco.setLogradouro("Rua f");
 
         // Salva o endereço no banco de dados
         Endereco enderecoSalvo = this.enderecoRepository.save(endereco);
@@ -66,6 +67,7 @@ class PacienteRepositoryTest {
         endereco.setEstado("Goiás");
         endereco.setNumero(11);
         endereco.setBairro("Vila barbosa");
+        endereco.setLogradouro("Avenida p");
 
         // Salva o endereço no banco de dados
         Endereco enderecoSalvo = this.enderecoRepository.save(endereco);
