@@ -1,11 +1,14 @@
 package ads4.fatesg.pbbellavisage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -39,6 +42,10 @@ public class Agendamento extends BaseModel{
     @ManyToOne
     @JoinColumn(name = "tratamento_id", referencedColumnName = "id")
     private Tratamento tratamento;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "agendamento", fetch = FetchType.LAZY)
+    private List<Pagamento> pagamentos = new ArrayList<>();
 
     public enum StatusAgendamento {
         Aberto, Concluido
