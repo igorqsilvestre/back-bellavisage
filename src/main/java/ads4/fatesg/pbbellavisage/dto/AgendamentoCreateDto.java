@@ -5,17 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 
 @Setter
 @Getter
 public class AgendamentoCreateDto {
     private Integer id;
     @NotNull
-    private String data;
-    @NotNull
-    private String hora;
+    private Date dataHorario;
     @NotNull
     private BigDecimal valor;
     @NotNull

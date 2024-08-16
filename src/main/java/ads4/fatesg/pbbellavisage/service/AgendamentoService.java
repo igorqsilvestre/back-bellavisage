@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -35,8 +36,8 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByDataHora(Integer id, String data, String hora) {
-        return agendamentoRepository.existsByDataEhora(id, data,hora);
+    public boolean existsByDataEhoraAndEspecialista(Integer id, Date dataHorario, Integer idEspecialista) {
+        return agendamentoRepository.existsByDataEhoraAndEspecialista(id, dataHorario,idEspecialista);
     }
 
     @Transactional(readOnly = true)

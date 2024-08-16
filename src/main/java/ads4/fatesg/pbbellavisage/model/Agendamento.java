@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -15,11 +15,8 @@ import java.util.List;
 @Table(name = "agendamento")
 public class Agendamento extends BaseModel{
 
-    @Column(name = "data", nullable = false)
-    private String data;
-
-    @Column(name = "hora", nullable = false)
-    private String hora;
+    @Column(name = "data_horario")
+    private Date dataHorario;
 
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;
