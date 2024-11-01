@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +42,7 @@ public class Agendamento extends BaseModel{
     @JsonIgnore
     @OneToMany(mappedBy = "agendamento", fetch = FetchType.LAZY)
     private List<Pagamento> pagamentos = new ArrayList<>();
+
 
     public enum StatusAgendamento {
         Aberto, Concluido
