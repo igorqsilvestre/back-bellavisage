@@ -1,5 +1,7 @@
 package ads4.fatesg.pbbellavisage.resource;
 
+import ads4.fatesg.pbbellavisage.dto.TratamentoCreateDto;
+import ads4.fatesg.pbbellavisage.dto.TratamentoResponseDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Especialista;
 import ads4.fatesg.pbbellavisage.model.Tratamento;
@@ -13,13 +15,14 @@ import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping(value = "api/v1/tratamento")
-public class TratamentoResource implements GenericOperations<Tratamento, Integer> {
+public class TratamentoResource {
 
     @Autowired
     private TratamentoService tratamentoService;
@@ -29,110 +32,59 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public Tratamento create(@Valid @RequestBody Tratamento entity) {
-
-        // Converte a imagem de Base64 para byte[] antes de salvar
-        entity.setImagemBase64(entity.getImagemBase64()); // Use o método setImagemBase64 para processar a imagem
-        return tratamentoService.create(entity);
+    public Tratamento createDto(@Valid @RequestBody TratamentoCreateDto dto) {
+        Tratamento tratamento = dto.criaTratamentoApartirDoDTO();
+        return tratamentoService.create(tratamento);
     }
 
     @GetMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public Tratamento read(@PathVariable  Integer id) {
+    public TratamentoResponseDto read(@PathVariable  Integer id) {
         Tratamento tratamento = tratamentoService.read(id);
-        // Converte a imagem para Base64 antes de retornar
-        tratamento.setImagemBase64(Base64.getEncoder().encodeToString(tratamento.getImagem()));
-        return tratamento;
+        return new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento);
     }
+
+
 
     @GetMapping(
             value = "/nome/{nome}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public Tratamento readByRegistro(@PathVariable String nome) {
+    public TratamentoResponseDto readByRegistro(@PathVariable String nome) {
         Tratamento tratamento = tratamentoService.readByNome(nome);
-        tratamento.setImagemBase64(Base64.getEncoder().encodeToString(tratamento.getImagem()));
-        return tratamento;
+        return new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento);
     }
+
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public List<Tratamento> readAll() {
+    public List<TratamentoResponseDto> readAll() {
         List<Tratamento> tratamentos = tratamentoService.readAll();
-        // Converte as imagens para Base64
+        List<TratamentoResponseDto> tratamentosDto = new ArrayList<>();
+
         for (Tratamento tratamento : tratamentos) {
-            tratamento.setImagemBase64(Base64.getEncoder().encodeToString(tratamento.getImagem()));
+           tratamentosDto.add(new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento));
         }
-        return tratamentos;
+        return tratamentosDto;
     }
 
-    @PatchMapping(
-            value = "/{id}",
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    @Override
-    public Tratamento updatePart(@PathVariable  Integer id, @Valid @RequestBody Tratamento entity) {
-        // Lê o tratamento atual
-        Tratamento tratamentoAtual = tratamentoService.read(id);
-
-        // Atualiza os campos
-        if (entity.getNome() != null) {
-            tratamentoAtual.setNome(entity.getNome());
-        }
-        if (entity.getValor() != null) {
-            tratamentoAtual.setValor(entity.getValor());
-        }
-        if (entity.getDescricao() != null) {
-            tratamentoAtual.setDescricao(entity.getDescricao());
-        }
-        if (entity.getFuncionamento() != null) {
-            tratamentoAtual.setFuncionamento(entity.getFuncionamento());
-        }
-        if (entity.getIndicacoes() != null) {
-            tratamentoAtual.setIndicacoes(entity.getIndicacoes());
-        }
-        // Converte a imagem de Base64 para byte[] se fornecida
-        if (entity.getImagemBase64() != null) {
-            tratamentoAtual.setImagem(Base64.getDecoder().decode(entity.getImagemBase64()));
-        }
-
-        return tratamentoService.updatePart(id, tratamentoAtual);
-    }
 
     @PutMapping(
             value = "/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public Tratamento updateAll(@PathVariable Integer id, @Valid @RequestBody Tratamento entity) {
-        // O mesmo processo que no updatePart
+    public Tratamento updateAll(@PathVariable Integer id, @Valid @RequestBody TratamentoCreateDto entity) {
         Tratamento tratamentoAtual = tratamentoService.read(id);
-
-        // Atualiza todos os campos
-        tratamentoAtual.setNome(entity.getNome());
-        tratamentoAtual.setValor(entity.getValor());
-        tratamentoAtual.setDescricao(entity.getDescricao());
-        tratamentoAtual.setFuncionamento(entity.getFuncionamento());
-        tratamentoAtual.setIndicacoes(entity.getIndicacoes());
-        // Converte a imagem de Base64 para byte[] se fornecida
-        tratamentoAtual.setImagem(Base64.getDecoder().decode(entity.getImagemBase64()));
-
-
-        return tratamentoService.updateAll(id, tratamentoAtual);
+        return tratamentoService.updateAll(id, entity);
     }
 
     @DeleteMapping(
             value = "/{id}"
     )
-    @Override
     public void delete(@PathVariable Integer id) {
         tratamentoService.delete(id);
     }
