@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -30,6 +31,9 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
     )
     @Override
     public Tratamento create(@Valid @RequestBody Tratamento entity) {
+
+        // Converte a imagem de Base64 para byte[] antes de salvar
+        entity.setImagemBase64(entity.getImagemBase64()); // Use o método setImagemBase64 para processar a imagem
         return tratamentoService.create(entity);
     }
 
@@ -39,7 +43,10 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
     )
     @Override
     public Tratamento read(@PathVariable  Integer id) {
-        return tratamentoService.read(id);
+        Tratamento tratamento = tratamentoService.read(id);
+        // Converte a imagem para Base64 antes de retornar
+        tratamento.setImagemBase64(Base64.getEncoder().encodeToString(tratamento.getImagem()));
+        return tratamento;
     }
 
     @GetMapping(
@@ -47,7 +54,9 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     public Tratamento readByRegistro(@PathVariable String nome) {
-        return tratamentoService.readByNome(nome);
+        Tratamento tratamento = tratamentoService.readByNome(nome);
+        tratamento.setImagemBase64(Base64.getEncoder().encodeToString(tratamento.getImagem()));
+        return tratamento;
     }
 
     @GetMapping(
@@ -55,7 +64,12 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
     )
     @Override
     public List<Tratamento> readAll() {
-        return tratamentoService.readAll();
+        List<Tratamento> tratamentos = tratamentoService.readAll();
+        // Converte as imagens para Base64
+        for (Tratamento tratamento : tratamentos) {
+            tratamento.setImagemBase64(Base64.getEncoder().encodeToString(tratamento.getImagem()));
+        }
+        return tratamentos;
     }
 
     @PatchMapping(
@@ -65,7 +79,31 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
     )
     @Override
     public Tratamento updatePart(@PathVariable  Integer id, @Valid @RequestBody Tratamento entity) {
-        return tratamentoService.updatePart(id,entity);
+        // Lê o tratamento atual
+        Tratamento tratamentoAtual = tratamentoService.read(id);
+
+        // Atualiza os campos
+        if (entity.getNome() != null) {
+            tratamentoAtual.setNome(entity.getNome());
+        }
+        if (entity.getValor() != null) {
+            tratamentoAtual.setValor(entity.getValor());
+        }
+        if (entity.getDescricao() != null) {
+            tratamentoAtual.setDescricao(entity.getDescricao());
+        }
+        if (entity.getFuncionamento() != null) {
+            tratamentoAtual.setFuncionamento(entity.getFuncionamento());
+        }
+        if (entity.getIndicacoes() != null) {
+            tratamentoAtual.setIndicacoes(entity.getIndicacoes());
+        }
+        // Converte a imagem de Base64 para byte[] se fornecida
+        if (entity.getImagemBase64() != null) {
+            tratamentoAtual.setImagem(Base64.getDecoder().decode(entity.getImagemBase64()));
+        }
+
+        return tratamentoService.updatePart(id, tratamentoAtual);
     }
 
     @PutMapping(
@@ -75,7 +113,20 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
     )
     @Override
     public Tratamento updateAll(@PathVariable Integer id, @Valid @RequestBody Tratamento entity) {
-        return tratamentoService.updateAll(id,entity);
+        // O mesmo processo que no updatePart
+        Tratamento tratamentoAtual = tratamentoService.read(id);
+
+        // Atualiza todos os campos
+        tratamentoAtual.setNome(entity.getNome());
+        tratamentoAtual.setValor(entity.getValor());
+        tratamentoAtual.setDescricao(entity.getDescricao());
+        tratamentoAtual.setFuncionamento(entity.getFuncionamento());
+        tratamentoAtual.setIndicacoes(entity.getIndicacoes());
+        // Converte a imagem de Base64 para byte[] se fornecida
+        tratamentoAtual.setImagem(Base64.getDecoder().decode(entity.getImagemBase64()));
+
+
+        return tratamentoService.updateAll(id, tratamentoAtual);
     }
 
     @DeleteMapping(

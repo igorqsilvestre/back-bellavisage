@@ -35,6 +35,9 @@ public class Endereco extends BaseModel{
 
     @JsonIgnoreProperties("endereco") // Evita recursão infinita
     @OneToOne(mappedBy = "endereco")
-    private Pessoa pessoa;
+    private Paciente paciente;
 
+    @JsonIgnoreProperties("endereco") // Evita recursão infinita
+    @OneToOne(mappedBy = "endereco")
+    private Especialista especialista;
 }
