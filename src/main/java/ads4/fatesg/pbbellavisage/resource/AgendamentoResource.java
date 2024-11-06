@@ -119,6 +119,7 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
         Tratamento tratamento = tratamentoService.read(entity.getTratamento());
 
         Agendamento agendamento = new Agendamento();
+        agendamento.setId(entity.getId());
         agendamento.setDataHorario(entity.getDataHorario());
         agendamento.setValor(entity.getValor());
         agendamento.setPaciente(paciente);

@@ -42,4 +42,8 @@ public class Tratamento extends BaseModel{
     @OneToMany(mappedBy = "tratamento", fetch = FetchType.LAZY)
     private List<Agendamento> agendamentos = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "tratamento", fetch = FetchType.LAZY)
+    private List<Horario> horarios = new ArrayList<>();
+
 }
