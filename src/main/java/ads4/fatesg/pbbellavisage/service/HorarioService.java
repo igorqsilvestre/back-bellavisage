@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -34,6 +35,11 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
     @Override
     public List<Horario> readAll() {
         return horarioRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Horario> readAllByTratamentoAndEspecialistaAndData(Integer idTratamento, Integer idEspecialista, Date data) {
+        return horarioRepository.findAllByTratamentoAndEspecialistaAndData(idTratamento, idEspecialista, data);
     }
 
 
@@ -65,4 +71,7 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
     public void delete(Integer id) {
         horarioRepository.deleteById(id);
     }
+
+
+
 }

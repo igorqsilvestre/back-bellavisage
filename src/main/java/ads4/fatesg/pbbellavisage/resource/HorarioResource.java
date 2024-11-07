@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -62,6 +63,17 @@ public class HorarioResource implements GenericOperations<Horario, Integer> {
     @Override
     public List<Horario> readAll() {
         return horarioService.readAll();
+    }
+
+    @GetMapping(
+            value = "/tratamento/{idTratamento}/especialista/{idEspecialista}/data/{data}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public List<Horario> readAllByTratamentoAndEspecialistaAndData(@PathVariable Integer idTratamento,
+                                                                   @PathVariable Integer idEspecialista,
+                                                                   @PathVariable Date data){
+
+        return horarioService.readAllByTratamentoAndEspecialistaAndData(idTratamento, idEspecialista, data);
     }
 
 
