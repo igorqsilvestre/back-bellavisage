@@ -38,6 +38,9 @@ public class Tratamento extends BaseModel{
     @Column(name = "imagem", nullable = false, columnDefinition = "LONGBLOB")
     private byte[] imagem;
 
+    @Column(name = "tipoImagem", length = 100)
+    private String tipoImagem;
+
     @JsonIgnore
     @OneToMany(mappedBy = "tratamento", fetch = FetchType.LAZY)
     private List<Agendamento> agendamentos = new ArrayList<>();

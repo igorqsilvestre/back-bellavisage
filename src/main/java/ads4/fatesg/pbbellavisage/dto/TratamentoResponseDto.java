@@ -25,6 +25,7 @@ public class TratamentoResponseDto {
     private String indicacoes;
     @NotNull
     private String imagem;
+    private String tipoImagem;
 
     public TratamentoResponseDto(){}
 
@@ -37,6 +38,7 @@ public class TratamentoResponseDto {
         tratamentoResponseDto.setFuncionamento(tratamento.getFuncionamento());
         tratamentoResponseDto.setIndicacoes(tratamento.getIndicacoes());
         tratamentoResponseDto.setImagem(converteImagemParaBase64DeByte(tratamento.getImagem()));
+        tratamentoResponseDto.setTipoImagem(tratamento.getTipoImagem());
         return tratamentoResponseDto;
     }
 
