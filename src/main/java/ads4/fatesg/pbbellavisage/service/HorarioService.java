@@ -42,6 +42,11 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
         return horarioRepository.findAllByTratamentoAndEspecialistaAndData(idTratamento, idEspecialista, data);
     }
 
+    @Transactional(readOnly = true)
+    public List<Horario> readAllByTratamentoAndData(Integer idTratamento, Date data) {
+        return horarioRepository.findAllByTratamentoAndData(idTratamento, data);
+    }
+
 
     @Override
     public Horario updatePart(Integer id, Horario entity) {
@@ -73,5 +78,8 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
     }
 
 
+    public void deleteHorariosMenoresQueDataAtual(Date dataAtual){
+        this.horarioRepository.deleteHorariosMenoresQueDataAtual(dataAtual);
+    }
 
 }

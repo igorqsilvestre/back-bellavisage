@@ -76,6 +76,14 @@ public class HorarioResource implements GenericOperations<Horario, Integer> {
         return horarioService.readAllByTratamentoAndEspecialistaAndData(idTratamento, idEspecialista, data);
     }
 
+    @GetMapping(
+            value = "/tratamento/{idTratamento}/data/{data}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public List<Horario> readAllByTratamentoAndData(@PathVariable Integer idTratamento, @PathVariable Date data){
+        return horarioService.readAllByTratamentoAndData(idTratamento, data);
+    }
+
 
     @PatchMapping(
             value = "/{id}",
@@ -103,6 +111,13 @@ public class HorarioResource implements GenericOperations<Horario, Integer> {
     @Override
     public void delete(@PathVariable Integer id) {
         horarioService.delete(id);
+    }
+
+    @DeleteMapping(
+            value = "/deletarHorariosAntigos"
+    )
+    public void delete() {
+        this.horarioService.deleteHorariosMenoresQueDataAtual(new Date());
     }
 
 
