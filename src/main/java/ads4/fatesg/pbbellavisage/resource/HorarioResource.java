@@ -95,6 +95,16 @@ public class HorarioResource implements GenericOperations<Horario, Integer> {
         return horarioService.updatePart(id,entity);
     }
 
+    @PatchMapping(
+            value = "/{id}/disponibilidade",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public boolean updateDisponibilidade(@PathVariable Integer id,
+                                         @RequestBody boolean disponibilidade) {
+        return horarioService.updateDisponibilidade(id,disponibilidade);
+    }
+
     @PutMapping(
             value = "/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},

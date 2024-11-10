@@ -36,8 +36,8 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByDataEhoraAndEspecialista(Integer id, Date dataHorario, Integer idEspecialista) {
-        return agendamentoRepository.existsByDataEhoraAndEspecialista(id, dataHorario,idEspecialista);
+    public boolean existsByDataEhoraAndEspecialistaAndPaciente(Integer id, Date dataHorario, Integer idEspecialista, Integer idPaciente) {
+        return agendamentoRepository.existsByDataEhoraAndEspecialistaAndPaciente(id, dataHorario,idEspecialista, idPaciente);
     }
 
     @Transactional(readOnly = true)

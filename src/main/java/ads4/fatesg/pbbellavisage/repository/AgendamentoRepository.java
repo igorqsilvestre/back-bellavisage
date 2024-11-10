@@ -13,9 +13,11 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
     @Query("SELECT COUNT(a) > 0 " +
             "FROM Agendamento a " +
             "WHERE a.especialista.id = :especialistaId " +
+            "AND a.paciente.id = :pacienteId " +
             "AND ((:id IS NULL AND DATE_FORMAT(a.dataHorario, '%Y-%m-%d %H:%i') = DATE_FORMAT(:dataHorario, '%Y-%m-%d %H:%i')) " +
             "OR (:id IS NOT NULL AND a.id <> :id AND DATE_FORMAT(a.dataHorario, '%Y-%m-%d %H:%i') = DATE_FORMAT(:dataHorario, '%Y-%m-%d %H:%i')))")
-    boolean existsByDataEhoraAndEspecialista(@Param("id") Integer id,
+    boolean existsByDataEhoraAndEspecialistaAndPaciente(@Param("id") Integer id,
                                              @Param("dataHorario") Date dataHorario,
-                                             @Param("especialistaId") Integer especialistaId);
+                                             @Param("especialistaId") Integer especialistaId,
+                                             @Param("pacienteId") Integer pacienteId);
 }

@@ -66,8 +66,8 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     public boolean existDatahora(@Valid @RequestBody AgendamentoCreateDto entity) {
-        return agendamentoService.existsByDataEhoraAndEspecialista(
-                entity.getId(), entity.getDataHorario(), entity.getEspecialista());
+        return agendamentoService.existsByDataEhoraAndEspecialistaAndPaciente(
+                entity.getId(), entity.getDataHorario(), entity.getEspecialista(), entity.getPaciente());
     }
 
     @GetMapping(
@@ -120,7 +120,7 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
 
         Agendamento agendamento = new Agendamento();
         agendamento.setId(entity.getId());
-        agendamento.setDataHorario(entity.getDataHorario());
+        //agendamento.setDataHorario(entity.getDataHorario());
         agendamento.setValor(entity.getValor());
         agendamento.setPaciente(paciente);
         agendamento.setEspecialista(especialista);

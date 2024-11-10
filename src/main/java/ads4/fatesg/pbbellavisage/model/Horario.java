@@ -28,4 +28,7 @@ public class Horario extends BaseModel{
     @JoinColumn(name = "tratamento_id", referencedColumnName = "id")
     private Tratamento tratamento;
 
+    @OneToOne(mappedBy = "horario")
+    private Agendamento agendamento;
+
 }

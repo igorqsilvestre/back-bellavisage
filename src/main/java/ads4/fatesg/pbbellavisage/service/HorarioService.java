@@ -60,6 +60,16 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
         return new Horario();
     }
 
+    public boolean updateDisponibilidade(Integer id,boolean disponibilidade){
+        Horario horarioEncontrado = this.read(id);
+
+        if(horarioEncontrado != null){
+            horarioEncontrado.setDisponibilidade(false);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public Horario updateAll(Integer id, Horario entity) {
         Horario horarioEncontrado = this.read(id);

@@ -22,7 +22,7 @@ public interface HorarioRepository extends JpaRepository<Horario, Integer> {
             @Param("idTratamento") Integer idTratamento,
             @Param("data") Date data);
 
-    @Query("DELETE FROM Horario h WHERE FUNCTION('DATE', h.data) < FUNCTION('DATE', :dataAtual)")
+    @Query("DELETE FROM Horario h WHERE FUNCTION('DATE', h.data) < FUNCTION('DATE', :dataAtual) AND h.disponibilidade = true")
     @Modifying
     void deleteHorariosMenoresQueDataAtual(@Param("dataAtual") Date dataAtual);
 }
