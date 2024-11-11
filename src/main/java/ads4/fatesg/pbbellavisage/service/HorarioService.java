@@ -1,7 +1,9 @@
 package ads4.fatesg.pbbellavisage.service;
 
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
+import ads4.fatesg.pbbellavisage.model.Especialista;
 import ads4.fatesg.pbbellavisage.model.Horario;
+import ads4.fatesg.pbbellavisage.model.Tratamento;
 import ads4.fatesg.pbbellavisage.repository.HorarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +50,7 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
     }
 
 
+
     @Override
     public Horario updatePart(Integer id, Horario entity) {
         Horario horarioEncontrado = this.read(id);
@@ -64,7 +67,7 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
         Horario horarioEncontrado = this.read(id);
 
         if(horarioEncontrado != null){
-            horarioEncontrado.setDisponibilidade(false);
+            horarioEncontrado.setDisponibilidade(disponibilidade);
             return true;
         }
         return false;

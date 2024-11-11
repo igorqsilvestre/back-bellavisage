@@ -1,6 +1,8 @@
 package ads4.fatesg.pbbellavisage.repository;
 
+import ads4.fatesg.pbbellavisage.model.Especialista;
 import ads4.fatesg.pbbellavisage.model.Horario;
+import ads4.fatesg.pbbellavisage.model.Tratamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +27,5 @@ public interface HorarioRepository extends JpaRepository<Horario, Integer> {
     @Query("DELETE FROM Horario h WHERE FUNCTION('DATE', h.data) < FUNCTION('DATE', :dataAtual) AND h.disponibilidade = true")
     @Modifying
     void deleteHorariosMenoresQueDataAtual(@Param("dataAtual") Date dataAtual);
+
 }

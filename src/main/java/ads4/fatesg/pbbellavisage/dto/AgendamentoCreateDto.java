@@ -14,9 +14,9 @@ import java.util.Date;
 public class AgendamentoCreateDto {
     private Integer id;
     @NotNull
-    private Date dataHorario;
-    @NotNull
     private BigDecimal valor;
+    @NotNull
+    private Integer horario;
     @NotNull
     private Integer paciente;
     @NotNull

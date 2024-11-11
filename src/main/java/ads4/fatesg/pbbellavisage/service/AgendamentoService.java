@@ -36,11 +36,6 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByDataEhoraAndEspecialistaAndPaciente(Integer id, Date dataHorario, Integer idEspecialista, Integer idPaciente) {
-        return agendamentoRepository.existsByDataEhoraAndEspecialistaAndPaciente(id, dataHorario,idEspecialista, idPaciente);
-    }
-
-    @Transactional(readOnly = true)
     @Override
     public List<Agendamento> readAll() {
         return agendamentoRepository.findAll();

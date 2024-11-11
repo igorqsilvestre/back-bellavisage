@@ -29,6 +29,7 @@ public class Horario extends BaseModel{
     private Tratamento tratamento;
 
     @OneToOne(mappedBy = "horario")
+    @JsonIgnore
     private Agendamento agendamento;
 
 }
