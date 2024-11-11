@@ -32,7 +32,7 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     @Transactional(readOnly = true)
     @Override
     public Agendamento read(Integer id) {
-        return agendamentoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Agendamento não encontrado!"));
+        return agendamentoRepository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)

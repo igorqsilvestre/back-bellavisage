@@ -27,12 +27,12 @@ public class TratamentoService {
 
     @Transactional(readOnly = true)
     public Tratamento read(Integer id) {
-        return tratamentoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Tratamento não encontrado!"));
+        return tratamentoRepository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)
     public Tratamento readByNome(String nome) {
-        return tratamentoRepository.findByNome(nome).orElseThrow(() -> new EntityNotFoundException("Tratamento não encontrado!"));
+        return tratamentoRepository.findByNome(nome).orElse(null);
     }
 
     @Transactional(readOnly = true)

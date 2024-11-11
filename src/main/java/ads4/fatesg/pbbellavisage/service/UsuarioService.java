@@ -27,12 +27,12 @@ public class UsuarioService implements GenericOperations<Usuario, Integer> {
     @Transactional(readOnly = true)
     @Override
     public Usuario read(Integer id) {
-        return usuarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
+        return usuarioRepository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)
     public Usuario readByEmail(String email) {
-        return usuarioRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado!"));
+        return usuarioRepository.findByEmail(email).orElse(null);
     }
 
     @Transactional(readOnly = true)

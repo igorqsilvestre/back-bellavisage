@@ -27,12 +27,12 @@ public class EspecialistaService implements GenericOperations<Especialista, Inte
     @Transactional(readOnly = true)
     @Override
     public Especialista read(Integer id) {
-        return especialistaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Especialista não encontrado!"));
+        return especialistaRepository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)
     public Especialista readByRegistro(Integer registro) {
-        return especialistaRepository.findByRegistro(registro).orElseThrow(() -> new EntityNotFoundException("Especialista não encontrado!"));
+        return especialistaRepository.findByRegistro(registro).orElse(null);
     }
 
     @Transactional(readOnly = true)

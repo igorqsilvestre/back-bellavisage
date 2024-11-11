@@ -30,7 +30,7 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
     @Transactional(readOnly = true)
     @Override
     public Horario read(Integer id) {
-        return horarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Horário não encontrado!"));
+        return horarioRepository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)

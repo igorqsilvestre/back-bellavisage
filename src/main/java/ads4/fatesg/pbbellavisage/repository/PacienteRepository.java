@@ -8,4 +8,11 @@ import java.util.Optional;
 
 public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
     Optional<Paciente> findByCpf(String cpf);
+
+    Optional<Paciente> findByEmail(String email);
+
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Paciente p WHERE p.email = :email AND p.senha = :senha")
+    boolean existsByEmailAndSenha(String email, String senha);
+
+
 }
