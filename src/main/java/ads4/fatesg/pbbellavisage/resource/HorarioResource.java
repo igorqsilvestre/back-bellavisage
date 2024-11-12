@@ -34,6 +34,10 @@ public class HorarioResource implements GenericOperations<Horario, Integer> {
     private TratamentoService tratamentoService;
 
 
+    @GetMapping("/ping")
+    public boolean ping() {
+        return true;
+    }
 
     @Override
     public Horario create(@Valid @RequestBody Horario entity) {

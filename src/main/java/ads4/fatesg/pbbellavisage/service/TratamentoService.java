@@ -36,6 +36,11 @@ public class TratamentoService {
     }
 
     @Transactional(readOnly = true)
+    public List<Tratamento> readAllByNomeStartingWith(String nome) {
+        return tratamentoRepository.findByNomeStartingWithIgnoreCase(nome);
+    }
+
+    @Transactional(readOnly = true)
     public List<Tratamento> readAll() {
         return tratamentoRepository.findAll();
     }

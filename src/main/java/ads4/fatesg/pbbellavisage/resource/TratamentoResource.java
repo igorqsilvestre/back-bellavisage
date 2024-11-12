@@ -27,6 +27,11 @@ public class TratamentoResource {
     @Autowired
     private TratamentoService tratamentoService;
 
+    @GetMapping("/ping")
+    public boolean ping() {
+        return true;
+    }
+
 
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE},
@@ -55,6 +60,17 @@ public class TratamentoResource {
     public TratamentoResponseDto readByRegistro(@PathVariable String nome) {
         Tratamento tratamento = tratamentoService.readByNome(nome);
         return new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento);
+    }
+
+    @GetMapping("/buscar")
+    public List<TratamentoResponseDto> readAllByNomeStartingWith(@RequestParam String nome) {
+        List<Tratamento> tratamentos = tratamentoService.readAllByNomeStartingWith(nome);
+        List<TratamentoResponseDto> tratamentosDto = new ArrayList<>();
+
+        for (Tratamento tratamento : tratamentos) {
+            tratamentosDto.add(new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento));
+        }
+        return tratamentosDto;
     }
 
 
