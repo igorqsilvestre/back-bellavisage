@@ -124,13 +124,6 @@ public class HorarioResource implements GenericOperations<Horario, Integer> {
         horarioService.delete(id);
     }
 
-    @DeleteMapping(
-            value = "/deletarHorariosAntigos"
-    )
-    public void delete() {
-        this.horarioService.deleteHorariosMenoresQueDataAtual(new Date());
-    }
-
 
     private Horario converteDtoEmHorario(HorarioCreateDto dto) {
         Especialista especialista = especialistaService.read(dto.getEspecialista());

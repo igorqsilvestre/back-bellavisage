@@ -90,9 +90,4 @@ public class HorarioService implements GenericOperations<Horario, Integer> {
         horarioRepository.deleteById(id);
     }
 
-
-    public void deleteHorariosMenoresQueDataAtual(Date dataAtual){
-        this.horarioRepository.deleteHorariosMenoresQueDataAtual(dataAtual);
-    }
-
 }
