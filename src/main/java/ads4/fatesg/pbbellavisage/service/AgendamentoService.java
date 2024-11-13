@@ -3,6 +3,7 @@ package ads4.fatesg.pbbellavisage.service;
 import ads4.fatesg.pbbellavisage.dto.AgendamentoCreateDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Agendamento;
+import ads4.fatesg.pbbellavisage.model.Tratamento;
 import ads4.fatesg.pbbellavisage.repository.AgendamentoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,16 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
         return agendamentoRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public List<Agendamento> readAllAgendamentosByPacienteIdAndStatus(Integer pacienteId, Agendamento.StatusAgendamento status) {
+        return agendamentoRepository.findByPacienteIdAndStatus(pacienteId, status);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Agendamento> readAllByNomeTratamentoStartingWithAndStatus(String nome, Agendamento.StatusAgendamento status) {
+        return agendamentoRepository.findByTratamentoNomeStartingWithIgnoreCaseAndStatus(nome, status);
+    }
+
     @Override
     public Agendamento updatePart(Integer id, Agendamento entity) {
 
@@ -72,4 +83,6 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     public void delete(Integer id) {
         agendamentoRepository.deleteById(id);
     }
+
+
 }

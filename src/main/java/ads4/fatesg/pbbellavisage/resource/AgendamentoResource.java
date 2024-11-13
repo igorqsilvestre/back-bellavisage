@@ -1,6 +1,7 @@
 package ads4.fatesg.pbbellavisage.resource;
 
 import ads4.fatesg.pbbellavisage.dto.AgendamentoCreateDto;
+import ads4.fatesg.pbbellavisage.dto.TratamentoResponseDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.*;
 import ads4.fatesg.pbbellavisage.service.*;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -32,6 +34,11 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
     @Autowired
     private HorarioService horarioService;
 
+
+    @GetMapping("/ping")
+    public boolean ping() {
+        return true;
+    }
 
 
     @PostMapping(
@@ -66,6 +73,22 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
     @Override
     public List<Agendamento> readAll() {
         return agendamentoService.readAll();
+    }
+
+
+    @GetMapping(value = "/paciente/{pacienteId}/status",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public List<Agendamento>readAllAgendamentosByPacienteIdAndStatus(@PathVariable Integer pacienteId, @RequestParam String status) {
+        Agendamento.StatusAgendamento statusAgendamento = Agendamento.StatusAgendamento.valueOf(status);
+        return agendamentoService.readAllAgendamentosByPacienteIdAndStatus(pacienteId, statusAgendamento);
+    }
+
+    @GetMapping("/buscar")
+    public List<Agendamento> readAllByNomeTratamentoStartingWithAndStatus(@RequestParam String nome, @RequestParam String status) {
+        Agendamento.StatusAgendamento statusAgendamento = Agendamento.StatusAgendamento.valueOf(status);
+        List<Agendamento> agendamentos = agendamentoService.readAllByNomeTratamentoStartingWithAndStatus(nome, statusAgendamento);
+        return agendamentos;
     }
 
     @PatchMapping(
