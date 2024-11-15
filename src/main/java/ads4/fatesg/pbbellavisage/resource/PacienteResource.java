@@ -1,5 +1,6 @@
 package ads4.fatesg.pbbellavisage.resource;
 
+import ads4.fatesg.pbbellavisage.dto.LoginDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Paciente;
 import ads4.fatesg.pbbellavisage.service.PacienteService;
@@ -29,6 +30,17 @@ public class PacienteResource implements GenericOperations<Paciente, Integer> {
         return pacienteService.create(entity);
     }
 
+    @PostMapping(
+            value = "/logar",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public boolean existsLogin(@RequestBody LoginDto request) {
+        String email = request.getEmail();
+        String senha = request.getSenha();
+        return pacienteService.existsPaciente(email,senha);
+    }
+
     @GetMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
@@ -52,6 +64,15 @@ public class PacienteResource implements GenericOperations<Paciente, Integer> {
     )
     public Paciente readByCPF(@PathVariable String cpf) {
         return pacienteService.readByCPF(cpf);
+
+    }
+
+    @GetMapping(
+            value = "/email/{email}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public Paciente readByEmail(@PathVariable String email) {
+        return pacienteService.readByEmail(email);
 
     }
 

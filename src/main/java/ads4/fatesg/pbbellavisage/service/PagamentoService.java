@@ -34,7 +34,7 @@ public class PagamentoService implements GenericOperations<Pagamento, Integer> {
     @Transactional(readOnly = true)
     @Override
     public Pagamento read(Integer id) {
-        return pagamentoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pagamento não encontrado!"));
+        return pagamentoRepository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)

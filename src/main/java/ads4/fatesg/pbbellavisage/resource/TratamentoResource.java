@@ -1,5 +1,7 @@
 package ads4.fatesg.pbbellavisage.resource;
 
+import ads4.fatesg.pbbellavisage.dto.TratamentoCreateDto;
+import ads4.fatesg.pbbellavisage.dto.TratamentoResponseDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Especialista;
 import ads4.fatesg.pbbellavisage.model.Tratamento;
@@ -10,15 +12,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping(value = "api/v1/tratamento")
-public class TratamentoResource implements GenericOperations<Tratamento, Integer> {
+public class TratamentoResource {
 
     @Autowired
     private TratamentoService tratamentoService;
@@ -28,60 +33,79 @@ public class TratamentoResource implements GenericOperations<Tratamento, Integer
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public Tratamento create(@Valid @RequestBody Tratamento entity) {
-        return tratamentoService.create(entity);
+    public Tratamento createDto(@Valid @RequestBody TratamentoCreateDto dto) {
+        Tratamento tratamento = dto.criaTratamentoApartirDoDTO();
+        return tratamentoService.create(tratamento);
     }
 
     @GetMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public Tratamento read(@PathVariable  Integer id) {
-        return tratamentoService.read(id);
+    public TratamentoResponseDto read(@PathVariable  Integer id) {
+        Tratamento tratamento = tratamentoService.read(id);
+        return new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento);
     }
+
+
 
     @GetMapping(
             value = "/nome/{nome}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public Tratamento readByRegistro(@PathVariable String nome) {
-        return tratamentoService.readByNome(nome);
+    public TratamentoResponseDto readByRegistro(@PathVariable String nome) {
+        Tratamento tratamento = tratamentoService.readByNome(nome);
+        return new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento);
     }
+
+    @GetMapping("/buscar")
+    public List<TratamentoResponseDto> readAllByNomeStartingWith(@RequestParam String nome) {
+        List<Tratamento> tratamentos = tratamentoService.readAllByNomeStartingWith(nome);
+        List<TratamentoResponseDto> tratamentosDto = new ArrayList<>();
+
+        for (Tratamento tratamento : tratamentos) {
+            tratamentosDto.add(new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento));
+        }
+        return tratamentosDto;
+    }
+
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public List<Tratamento> readAll() {
-        return tratamentoService.readAll();
+    public List<TratamentoResponseDto> readAll() {
+        List<Tratamento> tratamentos = tratamentoService.readAll();
+        List<TratamentoResponseDto> tratamentosDto = new ArrayList<>();
+
+        for (Tratamento tratamento : tratamentos) {
+           tratamentosDto.add(new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento));
+        }
+        return tratamentosDto;
     }
 
-    @PatchMapping(
-            value = "/{id}",
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
+    @GetMapping(
+            value="/ordenados",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public Tratamento updatePart(@PathVariable  Integer id, @Valid @RequestBody Tratamento entity) {
-        return tratamentoService.updatePart(id,entity);
+    public List<TratamentoResponseDto> listarTratamentosOrdenados() {
+        List<TratamentoResponseDto> tratamentos = tratamentoService.listarTratamentosEmOrdemAlfabetica();
+        return tratamentos;
     }
+
 
     @PutMapping(
             value = "/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    @Override
-    public Tratamento updateAll(@PathVariable Integer id, @Valid @RequestBody Tratamento entity) {
-        return tratamentoService.updateAll(id,entity);
+    public Tratamento updateAll(@PathVariable Integer id, @Valid @RequestBody TratamentoCreateDto entity) {
+        Tratamento tratamentoAtual = tratamentoService.read(id);
+        return tratamentoService.updateAll(id, entity);
     }
 
     @DeleteMapping(
             value = "/{id}"
     )
-    @Override
     public void delete(@PathVariable Integer id) {
         tratamentoService.delete(id);
     }

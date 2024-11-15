@@ -14,8 +14,6 @@ import java.util.List;
 @Table(name = "agendamento")
 public class Agendamento extends BaseModel{
 
-    @Column(name = "data_horario")
-    private Date dataHorario;
 
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;
@@ -38,6 +36,10 @@ public class Agendamento extends BaseModel{
     @ManyToOne
     @JoinColumn(name = "tratamento_id", referencedColumnName = "id")
     private Tratamento tratamento;
+
+    @OneToOne
+    @JoinColumn(name = "horario_id", referencedColumnName = "id", nullable = false)
+    private Horario horario;
 
     @JsonIgnore
     @OneToMany(mappedBy = "agendamento", fetch = FetchType.LAZY)

@@ -27,7 +27,7 @@ public class EnderecoService implements GenericOperations<Endereco, Integer> {
     @Transactional(readOnly = true)
     @Override
     public Endereco read(Integer id) {
-        return enderecoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado!"));
+        return enderecoRepository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)

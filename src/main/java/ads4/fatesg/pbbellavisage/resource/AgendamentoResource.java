@@ -1,21 +1,21 @@
 package ads4.fatesg.pbbellavisage.resource;
 
 import ads4.fatesg.pbbellavisage.dto.AgendamentoCreateDto;
+import ads4.fatesg.pbbellavisage.dto.TratamentoResponseDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
-import ads4.fatesg.pbbellavisage.model.Agendamento;
-import ads4.fatesg.pbbellavisage.model.Especialista;
-import ads4.fatesg.pbbellavisage.model.Paciente;
-import ads4.fatesg.pbbellavisage.model.Tratamento;
-import ads4.fatesg.pbbellavisage.service.AgendamentoService;
-import ads4.fatesg.pbbellavisage.service.EspecialistaService;
-import ads4.fatesg.pbbellavisage.service.PacienteService;
-import ads4.fatesg.pbbellavisage.service.TratamentoService;
+import ads4.fatesg.pbbellavisage.model.*;
+import ads4.fatesg.pbbellavisage.service.*;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -35,6 +35,8 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
     @Autowired
     private TratamentoService tratamentoService;
 
+    @Autowired
+    private HorarioService horarioService;
 
 
     @PostMapping(
@@ -44,6 +46,7 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
     public Agendamento createAgendamentoComDto(@Valid @RequestBody AgendamentoCreateDto entity) {
         Agendamento agendamento = converteDtoEmAgendamento(entity);
         agendamento.setStatus(Agendamento.StatusAgendamento.Aberto);
+        horarioService.updateDisponibilidade(agendamento.getHorario().getId(), false);
         return agendamentoService.create(agendamento);
     }
 
@@ -61,14 +64,6 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
         return agendamentoService.read(id);
     }
 
-    @PostMapping(
-            value = "/exists/dataHora",
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public boolean existDatahora(@Valid @RequestBody AgendamentoCreateDto entity) {
-        return agendamentoService.existsByDataEhoraAndEspecialista(
-                entity.getId(), entity.getDataHorario(), entity.getEspecialista());
-    }
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
@@ -76,6 +71,35 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
     @Override
     public List<Agendamento> readAll() {
         return agendamentoService.readAll();
+    }
+
+
+    @GetMapping(value = "/paciente/{pacienteId}/status",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public List<Agendamento>readAllAgendamentosByPacienteIdAndStatus(@PathVariable Integer pacienteId, @RequestParam String status) {
+        Agendamento.StatusAgendamento statusAgendamento = Agendamento.StatusAgendamento.valueOf(status);
+        return agendamentoService.readAllAgendamentosByPacienteIdAndStatus(pacienteId, statusAgendamento);
+    }
+
+    @GetMapping(value = "/paciente/{pacienteId}/status/data",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public List<Agendamento>readAllAgendamentosByPacienteIdStatusAndDate(@PathVariable Integer pacienteId,
+                                                                         @RequestParam String status,
+                                                                         @RequestParam String data) throws ParseException {
+        Agendamento.StatusAgendamento statusAgendamento = Agendamento.StatusAgendamento.valueOf(status);
+        // Converter String para java.util.Date
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); // Formato esperado da data
+        Date dataAgendamento = format.parse(data); // Converte a String para Date
+        return agendamentoService.readAllAgendamentosByPacienteIdStatusAndDate(pacienteId, statusAgendamento,dataAgendamento);
+    }
+
+    @GetMapping("/buscar")
+    public List<Agendamento> readAllByNomeTratamentoStartingWithAndStatus(@RequestParam String nome, @RequestParam String status) {
+        Agendamento.StatusAgendamento statusAgendamento = Agendamento.StatusAgendamento.valueOf(status);
+        List<Agendamento> agendamentos = agendamentoService.readAllByNomeTratamentoStartingWithAndStatus(nome, statusAgendamento);
+        return agendamentos;
     }
 
     @PatchMapping(
@@ -110,17 +134,21 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
     )
     @Override
     public void delete(@PathVariable Integer id) {
-        agendamentoService.delete(id);
+        Agendamento agendamento = agendamentoService.read(id);
+        horarioService.updateDisponibilidade(agendamento.getHorario().getId(), true);
+        agendamentoService.delete(agendamento.getId());
     }
 
     private Agendamento converteDtoEmAgendamento(@RequestBody @Valid AgendamentoCreateDto entity) {
         Paciente paciente = pacienteService.read(entity.getPaciente());
         Especialista especialista = especialistaService.read(entity.getEspecialista());
         Tratamento tratamento = tratamentoService.read(entity.getTratamento());
+        Horario horario = horarioService.read(entity.getHorario());
 
         Agendamento agendamento = new Agendamento();
-        agendamento.setDataHorario(entity.getDataHorario());
+        agendamento.setId(entity.getId());
         agendamento.setValor(entity.getValor());
+        agendamento.setHorario(horario);
         agendamento.setPaciente(paciente);
         agendamento.setEspecialista(especialista);
         agendamento.setTratamento(tratamento);
