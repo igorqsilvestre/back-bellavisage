@@ -20,11 +20,6 @@ public class PacienteResource implements GenericOperations<Paciente, Integer> {
     @Autowired
     private PacienteService pacienteService;
 
-    @GetMapping("/ping")
-    public boolean ping() {
-        return true;
-    }
-
 
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE},

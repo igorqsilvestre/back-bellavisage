@@ -48,9 +48,15 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     }
 
     @Transactional(readOnly = true)
+    public List<Agendamento> readAllAgendamentosByPacienteIdStatusAndDate(Integer pacienteId, Agendamento.StatusAgendamento status, Date data) {
+        return agendamentoRepository.findByPacienteIdAndStatusAndHorarioData(pacienteId, status, data);
+    }
+
+    @Transactional(readOnly = true)
     public List<Agendamento> readAllByNomeTratamentoStartingWithAndStatus(String nome, Agendamento.StatusAgendamento status) {
         return agendamentoRepository.findByTratamentoNomeStartingWithIgnoreCaseAndStatus(nome, status);
     }
+    
 
     @Override
     public Agendamento updatePart(Integer id, Agendamento entity) {
@@ -83,6 +89,7 @@ public class AgendamentoService implements GenericOperations<Agendamento, Intege
     public void delete(Integer id) {
         agendamentoRepository.deleteById(id);
     }
+
 
 
 }

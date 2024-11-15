@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -33,12 +37,6 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
 
     @Autowired
     private HorarioService horarioService;
-
-
-    @GetMapping("/ping")
-    public boolean ping() {
-        return true;
-    }
 
 
     @PostMapping(
@@ -82,6 +80,19 @@ public class AgendamentoResource implements GenericOperations<Agendamento, Integ
     public List<Agendamento>readAllAgendamentosByPacienteIdAndStatus(@PathVariable Integer pacienteId, @RequestParam String status) {
         Agendamento.StatusAgendamento statusAgendamento = Agendamento.StatusAgendamento.valueOf(status);
         return agendamentoService.readAllAgendamentosByPacienteIdAndStatus(pacienteId, statusAgendamento);
+    }
+
+    @GetMapping(value = "/paciente/{pacienteId}/status/data",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public List<Agendamento>readAllAgendamentosByPacienteIdStatusAndDate(@PathVariable Integer pacienteId,
+                                                                         @RequestParam String status,
+                                                                         @RequestParam String data) throws ParseException {
+        Agendamento.StatusAgendamento statusAgendamento = Agendamento.StatusAgendamento.valueOf(status);
+        // Converter String para java.util.Date
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); // Formato esperado da data
+        Date dataAgendamento = format.parse(data); // Converte a String para Date
+        return agendamentoService.readAllAgendamentosByPacienteIdStatusAndDate(pacienteId, statusAgendamento,dataAgendamento);
     }
 
     @GetMapping("/buscar")

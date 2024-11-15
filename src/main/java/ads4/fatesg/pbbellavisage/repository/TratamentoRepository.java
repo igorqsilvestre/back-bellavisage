@@ -10,4 +10,6 @@ public interface TratamentoRepository extends JpaRepository<Tratamento, Integer>
     Optional<Tratamento> findByNome(String nome);
 
     List<Tratamento> findByNomeStartingWithIgnoreCase(String nome);
+
+    List<Tratamento> findAllByOrderByNomeAsc();
 }

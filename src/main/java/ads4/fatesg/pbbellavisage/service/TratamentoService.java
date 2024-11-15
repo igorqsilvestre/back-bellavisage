@@ -1,6 +1,7 @@
 package ads4.fatesg.pbbellavisage.service;
 
 import ads4.fatesg.pbbellavisage.dto.TratamentoCreateDto;
+import ads4.fatesg.pbbellavisage.dto.TratamentoResponseDto;
 import ads4.fatesg.pbbellavisage.interfaces.GenericOperations;
 import ads4.fatesg.pbbellavisage.model.Tratamento;
 import ads4.fatesg.pbbellavisage.repository.TratamentoRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -44,8 +46,14 @@ public class TratamentoService {
     public List<Tratamento> readAll() {
         return tratamentoRepository.findAll();
     }
-    
-    
+
+    @Transactional(readOnly = true)
+    public List<TratamentoResponseDto> listarTratamentosEmOrdemAlfabetica() {
+        return tratamentoRepository.findAllByOrderByNomeAsc()
+                .stream()
+                .map(tratamento -> new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento))
+                .collect(Collectors.toList());
+    }
 
     
     public Tratamento updateAll(Integer id, TratamentoCreateDto dto) {

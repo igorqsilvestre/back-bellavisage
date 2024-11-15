@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +27,6 @@ public class TratamentoResource {
 
     @Autowired
     private TratamentoService tratamentoService;
-
-    @GetMapping("/ping")
-    public boolean ping() {
-        return true;
-    }
 
 
     @PostMapping(
@@ -85,6 +81,15 @@ public class TratamentoResource {
            tratamentosDto.add(new TratamentoResponseDto().criaTratamentoDtoApartirDoTratamento(tratamento));
         }
         return tratamentosDto;
+    }
+
+    @GetMapping(
+            value="/ordenados",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public List<TratamentoResponseDto> listarTratamentosOrdenados() {
+        List<TratamentoResponseDto> tratamentos = tratamentoService.listarTratamentosEmOrdemAlfabetica();
+        return tratamentos;
     }
 
 
