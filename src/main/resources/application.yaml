@@ -40,7 +40,7 @@ spring:
   #Configuração da origem do banco de dados
   datasource:
     name: mysql
-    url: jdbc:mysql://database-2.c9ym2ke0804h.us-east-2.rds.amazonaws.com:3306/bellavisage?useSSL=false&allowPublicKeyRetrieval=true
-    username: admin
-    password: TzTo28fJ2WqcCyVIdN5n
+    url: jdbc:mysql://localhost:3306/bellavisage
+    username: root
+    password: aluno
 
