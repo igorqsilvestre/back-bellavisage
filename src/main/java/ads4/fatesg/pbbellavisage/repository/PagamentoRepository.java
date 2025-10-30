@@ -10,4 +10,6 @@ import java.math.BigDecimal;
 public interface PagamentoRepository extends JpaRepository<Pagamento, Integer> {
     @Query("SELECT SUM(p.valor) FROM Pagamento p WHERE p.agendamento.tratamento.id = :tratamentoId AND MONTH(p.dataHorario) = :mes AND YEAR(p.dataHorario) = :ano AND p.statusPagamento = 'Pago'")
     BigDecimal calcularFaturamentoMensal(@Param("tratamentoId") Long tratamentoId, @Param("mes") int mes, @Param("ano") int ano);
+
+    boolean existsByAgendamento_Id(Integer agendamentoId);
 }

@@ -43,6 +43,11 @@ public class PagamentoService implements GenericOperations<Pagamento, Integer> {
         return pagamentoRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public boolean existsByAgendamentoId(Integer agendamentoId){
+        return pagamentoRepository.existsByAgendamento_Id(agendamentoId);
+    }
+
     @Override
     public Pagamento updatePart(Integer id, Pagamento entity) {
         Pagamento pagamentoEncontrado = this.read(id);

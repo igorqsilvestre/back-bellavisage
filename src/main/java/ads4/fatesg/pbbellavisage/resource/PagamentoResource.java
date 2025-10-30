@@ -60,6 +60,14 @@ public class PagamentoResource implements GenericOperations<Pagamento, Integer> 
     }
 
     @GetMapping(
+            value = "/exists/agendamento/{agendamentoId}",
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public boolean checkExistsPagamentoByAgendamentoId(@PathVariable  Integer agendamentoId) {
+        return pagamentoService.existsByAgendamentoId(agendamentoId);
+    }
+
+    @GetMapping(
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     @Override
